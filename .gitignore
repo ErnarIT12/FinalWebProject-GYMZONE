@@ -18,3 +18,13 @@ GITHUB_COMMANDS.md
 # Assignment 6 local notes and submission archive
 DEFENSE_Assignment6_RU.md
 *.zip
+
+# Final project submission files (zip, report, links) and presentation notes
+submission/
+PRESENTATION_RU.md
+
+# Playwright MCP output
+.playwright-mcp/
+
+# Local readme (not part of the submitted project)
+README.md

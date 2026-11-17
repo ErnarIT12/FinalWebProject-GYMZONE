@@ -1,5 +1,4 @@
-.exercise-filters,
-.wizard-actions {
+.exercise-filters {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -95,53 +94,6 @@
     line-height: 1.4;
 }
 
-.profile-progress {
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--line);
-    color: var(--accent);
-    font-size: 0.9rem;
-    font-variant-numeric: tabular-nums;
-}
-
-.wizard-step {
-    min-width: 0;
-}
-
-.wizard-step legend {
-    margin-bottom: 20px;
-    color: var(--ink);
-    font-family: var(--font-heading);
-    font-size: 1.25rem;
-    font-weight: 700;
-}
-
-.profile-review {
-    display: grid;
-    gap: 8px;
-}
-
-.profile-review dt {
-    color: var(--muted);
-    font-size: 0.8rem;
-    font-weight: 400;
-}
-
-.profile-review dd {
-    margin-bottom: 12px;
-    overflow-wrap: anywhere;
-    color: var(--ink);
-}
-
-.wizard-actions .btn {
-    flex: 1 1 auto;
-}
-
-.wizard-actions [hidden],
-.wizard-step[hidden] {
-    display: none !important;
-}
-
 #toggle-sound[aria-pressed="true"] {
     border-color: var(--accent);
     color: var(--accent);
@@ -150,10 +102,6 @@
 @media (prefers-reduced-motion: no-preference) {
     .catalog-result {
         animation: catalog-enter 240ms ease-out both;
-    }
-
-    .wizard-step:not([hidden]) {
-        animation: catalog-enter 200ms ease-out both;
     }
 }
 
@@ -185,10 +133,6 @@
 
     .gallery-thumbnail img {
         height: 76px;
-    }
-
-    .wizard-actions .btn {
-        padding-inline: 12px;
     }
 }
 

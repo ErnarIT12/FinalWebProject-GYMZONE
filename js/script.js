@@ -5,7 +5,8 @@ const LAZY_PLACEHOLDER =
 const LAZY_BUFFER = 200;
 const COPY_ICON =
     '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"></rect><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"></path></svg>';
-const CHECK_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg>';
+const CHECK_ICON =
+    '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 13l4 4L19 7"></path></svg>';
 let pendingCopyText = null;
 
 function escapeRegExp(text) {
@@ -25,7 +26,8 @@ function buildHighlightedNodes(text, pattern) {
     });
 }
 
-// Task 1 and Task 2: live filter and autocomplete for the Exercise Explorer.
+// Exercise Explorer: live filter and autocomplete.
+// The query and category are saved in localStorage and restored on the next visit.
 function initializeLiveSearch() {
     const $input = $("#exercise-search");
     if (!$input.length) return;
@@ -52,6 +54,10 @@ function initializeLiveSearch() {
 
         $cards.not($matches).hide();
         $matches.show();
+        localStorage.setItem(
+            EXPLORER_KEY,
+            JSON.stringify({ query: typed, category: currentCategory() }),
+        );
         $empty.prop("hidden", $matches.length > 0);
         $count.text(
             query
@@ -100,7 +106,10 @@ function initializeLiveSearch() {
         const $options = $list.children();
         activeIndex = (activeIndex + step + $options.length) % $options.length;
         $options.removeClass("is-active").attr("aria-selected", "false");
-        const $active = $options.eq(activeIndex).addClass("is-active").attr("aria-selected", "true");
+        const $active = $options
+            .eq(activeIndex)
+            .addClass("is-active")
+            .attr("aria-selected", "true");
         $input.attr("aria-activedescendant", $active.attr("id"));
     }
 
@@ -151,10 +160,27 @@ function initializeLiveSearch() {
     });
     // Runs after the handler in advanced.js, which has just rebuilt the cards.
     $filters.on("click", applyFilter);
+
+    // The last search and category come back on the next visit (saved in applyFilter).
+    const saved = readSavedSearch();
+    if (saved.category && saved.category !== "all") {
+        $filters.filter(`[data-exercise-filter="${saved.category}"]`).trigger("click");
+    }
+    if (saved.query) $input.val(saved.query);
     applyFilter();
 }
 
-// Task 3: highlights every match in the FAQ and opens the answers that contain one.
+const EXPLORER_KEY = "gymzone-explorer";
+
+function readSavedSearch() {
+    try {
+        return JSON.parse(localStorage.getItem(EXPLORER_KEY)) || {};
+    } catch {
+        return {};
+    }
+}
+
+// FAQ search: highlights every match in the FAQ and opens the answers that contain one.
 function initializeFaqHighlight() {
     const $input = $("#faq-search");
     if (!$input.length) return;
@@ -184,7 +210,9 @@ function initializeFaqHighlight() {
             $searchable
                 .contents()
                 .filter(function () {
-                    return this.nodeType === Node.TEXT_NODE && this.nodeValue.split(pattern).length > 1;
+                    return (
+                        this.nodeType === Node.TEXT_NODE && this.nodeValue.split(pattern).length > 1
+                    );
                 })
                 .each(function () {
                     $(this).replaceWith(buildHighlightedNodes(this.nodeValue, pattern));
@@ -216,7 +244,7 @@ function initializeFaqHighlight() {
     });
 }
 
-// Task 4: gradient progress bar, added here so every page gets it.
+// Scroll progress: gradient bar, added here so every page gets it.
 function initializeScrollProgress() {
     const $fill = $('<div class="scroll-progress-fill"></div>');
     $('<div class="scroll-progress" aria-hidden="true"></div>').append($fill).prependTo("body");
@@ -231,7 +259,7 @@ function initializeScrollProgress() {
     updateProgress();
 }
 
-// Task 5: counts each number up once, the first time the section is on screen.
+// Stats: counts each number up once, the first time the section is on screen.
 function initializeStatCounters() {
     const $section = $("#site-stats");
     if (!$section.length) return;
@@ -265,7 +293,7 @@ function initializeStatCounters() {
     startWhenVisible();
 }
 
-// Task 6: spinner and disabled button while a server call is simulated. There is no backend.
+// Contact form: spinner and disabled button while a server call is simulated. There is no backend.
 function initializeSubmitSpinner() {
     const $form = $("#contact-form");
     if (!$form.length) return;
@@ -280,26 +308,30 @@ function initializeSubmitSpinner() {
         $button
             .prop("disabled", true)
             .attr("aria-busy", "true")
-            .html('<span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Please wait...');
+            .html(
+                '<span class="spinner-border spinner-border-sm" aria-hidden="true"></span> Please wait...',
+            );
 
         window.setTimeout(() => {
             $button.prop("disabled", false).removeAttr("aria-busy").html(label);
             // reset() also clears the status line in main.js, so the message is written after it.
             this.reset();
-            $form.find(".form-status").text("Thank you! This demo form does not send data to a server.");
+            $form
+                .find(".form-status")
+                .text("Thank you! This demo form does not send data to a server.");
             showToast("Form submitted successfully.");
         }, 1800);
     });
 }
 
-// Task 7: temporary notification. Called from this file and from advanced.js.
+// Toast: temporary notification. Called from this file, auth.js and api.js.
 function showToast(message, type = "success") {
-    // A modal <dialog> sits above the whole page, so the toast must live inside it.
-    const $openDialog = $("dialog[open]").last();
-    const $host = $openDialog.length ? $openDialog : $("body");
+    const $host = $("body");
     let $stack = $host.children(".toast-stack");
     if (!$stack.length) {
-        $stack = $('<div class="toast-stack" role="status" aria-live="polite"></div>').appendTo($host);
+        $stack = $('<div class="toast-stack" role="status" aria-live="polite"></div>').appendTo(
+            $host,
+        );
     }
 
     $("<div>", { class: `site-toast site-toast-${type}` })
@@ -313,7 +345,7 @@ function showToast(message, type = "success") {
         });
 }
 
-// Task 8: execCommand fires the "copy" event, and the handler below fills the clipboard.
+// Copy buttons: execCommand fires the "copy" event, and the handler below fills the clipboard.
 async function writeToClipboard(text) {
     pendingCopyText = text;
     const copied = document.execCommand("copy");
@@ -345,12 +377,16 @@ function initializeCopyButtons() {
             .map((index, step) => `${index + 1}. ${$(step).text().trim()}`)
             .get();
         const $heading = $content.find("h4").wrap('<div class="copy-row"></div>');
-        createCopyButton(`${title}\n${steps.join("\n")}`, `${title} technique`).insertAfter($heading);
+        createCopyButton(`${title}\n${steps.join("\n")}`, `${title} technique`).insertAfter(
+            $heading,
+        );
     });
 
     $(".footer-email").each(function () {
         const $email = $(this);
-        const $row = $email.wrap('<div class="copy-row copy-row-start mt-3"></div>').removeClass("mt-3");
+        const $row = $email
+            .wrap('<div class="copy-row copy-row-start mt-3"></div>')
+            .removeClass("mt-3");
         createCopyButton($email.text().trim(), "email address").insertAfter($row);
     });
 
@@ -378,7 +414,7 @@ function initializeCopyButtons() {
     });
 }
 
-// Task 9: an image gets its real src only when it comes close to the viewport.
+// Lazy images: an image gets its real src only when it comes close to the viewport.
 function loadLazyImage($image) {
     $image
         .removeClass("lazy-image")
@@ -412,7 +448,6 @@ function initializeLazyImages() {
 }
 
 $(document).ready(function () {
-    console.log("jQuery is ready!");
     $.fx.off = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     initializeLazyImages();

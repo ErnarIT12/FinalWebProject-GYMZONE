@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Create a GYMZONE profile to save exercises and your training goal."
+        />
+        <meta name="theme-color" content="#111715" />
+        <title>Sign Up | GYMZONE</title>
+        <script src="js/theme.js"></script>
+        <link rel="icon" type="image/png" href="images/gymzone-logo.png" />
+        <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/interactive.css" />
+        <link rel="stylesheet" href="css/advanced.css" />
+        <link rel="stylesheet" href="css/jquery-features.css" />
+        <link rel="stylesheet" href="css/pages.css" />
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+        <script src="js/jquery-fallback.js"></script>
+        <script src="js/script.js"></script>
+    </head>
+    <body>
+        <a class="skip-link" href="#main-content">Skip to main content</a>
+        <header id="main-header" class="site-header">
+            <nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Main navigation">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html"
+                        ><img
+                            class="logo-on-dark"
+                            src="images/gymzone-logo-dark.png"
+                            alt="GYMZONE home"
+                            width="914"
+                            height="202" /><img
+                            class="logo-on-light"
+                            src="images/gymzone-logo-light.png"
+                            alt=""
+                            width="914"
+                            height="202"
+                    /></a>
+                    <div class="nav-actions">
+                        <button
+                            type="button"
+                            class="theme-toggle"
+                            data-theme-toggle
+                            aria-pressed="false"
+                            aria-label="Switch color theme"
+                        >
+                            <svg
+                                class="theme-icon theme-icon-sun"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <path
+                                    d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"
+                                ></path>
+                            </svg>
+                            <svg
+                                class="theme-icon theme-icon-moon"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"
+                                ></path>
+                            </svg>
+                        </button>
+                        <button
+                            class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#mainNavbar"
+                            aria-controls="mainNavbar"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                        >
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="mainNavbar">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="upper.html">Upper Body</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="lower.html">Lower Body</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="crossfit.html">CrossFit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="library.html">Library</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about.html">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link nav-account active"
+                                    aria-current="page"
+                                    href="login.html"
+                                    data-account-link
+                                    >Log in</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main id="main-content">
+            <section class="section auth-section py-5">
+                <div class="container auth-layout">
+                    <div class="auth-intro">
+                        <p class="eyebrow">Join GYMZONE</p>
+                        <h1>CREATE YOUR PROFILE</h1>
+                        <p class="interactive-muted">
+                            A profile keeps your training goal and favorite exercises from the
+                            library in one place.
+                        </p>
+                        <ul class="check-list">
+                            <li>Save exercises from the live library</li>
+                            <li>See a weekly focus based on your goal</li>
+                            <li>Edit your details at any time</li>
+                        </ul>
+                        <p class="auth-note">
+                            This is a demo without a server. Your profile is stored only in this
+                            browser, and the password is saved as a SHA-256 hash.
+                        </p>
+                        <img
+                            class="auth-image"
+                            src="images/Box%20Jumps.gif"
+                            alt="Animated box jump"
+                            width="480"
+                            height="270"
+                        />
+                    </div>
+                    <form
+                        id="signup-form"
+                        class="form-card auth-card p-4 p-sm-5"
+                        data-validate
+                        data-auth="signup"
+                        novalidate
+                    >
+                        <h2 class="mb-4">Sign up</h2>
+                        <div class="mb-3">
+                            <label class="form-label" for="signup-name">Full name</label>
+                            <input
+                                class="form-control"
+                                id="signup-name"
+                                name="name"
+                                type="text"
+                                autocomplete="name"
+                                placeholder="Aruzhan Sadykova"
+                                data-label="Full name"
+                                data-required
+                                data-rule="name"
+                                aria-describedby="signup-name-error"
+                            />
+                            <p class="field-error" id="signup-name-error"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="signup-email">Email</label>
+                            <input
+                                class="form-control"
+                                id="signup-email"
+                                name="email"
+                                type="text"
+                                inputmode="email"
+                                autocomplete="email"
+                                placeholder="you@example.com"
+                                data-label="Email"
+                                data-required
+                                data-rule="email"
+                                aria-describedby="signup-email-error"
+                            />
+                            <p class="field-error" id="signup-email-error"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="signup-phone">Phone number</label>
+                            <input
+                                class="form-control"
+                                id="signup-phone"
+                                name="phone"
+                                type="tel"
+                                autocomplete="tel"
+                                placeholder="+7 701 234 5678"
+                                data-label="Phone number"
+                                data-required
+                                data-rule="phone"
+                                aria-describedby="signup-phone-error"
+                            />
+                            <p class="field-error" id="signup-phone-error"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="signup-goal">Training goal</label>
+                            <select
+                                class="form-select"
+                                id="signup-goal"
+                                name="goal"
+                                data-label="a training goal"
+                                data-required
+                                aria-describedby="signup-goal-error"
+                            >
+                                <option value="">Select your goal</option>
+                                <option value="strength">Build strength</option>
+                                <option value="muscle">Build muscle</option>
+                                <option value="endurance">Improve endurance</option>
+                                <option value="technique">Learn proper technique</option>
+                            </select>
+                            <p class="field-error" id="signup-goal-error"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="signup-password">Password</label>
+                            <div class="password-field">
+                                <input
+                                    class="form-control"
+                                    id="signup-password"
+                                    name="password"
+                                    type="password"
+                                    autocomplete="new-password"
+                                    data-label="Password"
+                                    data-required
+                                    data-rule="password"
+                                    aria-describedby="password-rules signup-password-error"
+                                />
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    data-toggle-password="signup-password"
+                                    aria-pressed="false"
+                                >
+                                    Show
+                                </button>
+                            </div>
+                            <div class="strength-meter" aria-hidden="true">
+                                <span data-strength-bar></span>
+                            </div>
+                            <ul
+                                class="password-rules"
+                                id="password-rules"
+                                aria-label="Password requirements"
+                            >
+                                <li data-password-check="length">At least 8 characters</li>
+                                <li data-password-check="upper">One uppercase letter</li>
+                                <li data-password-check="lower">One lowercase letter</li>
+                                <li data-password-check="digit">One number</li>
+                                <li data-password-check="symbol">One symbol, like ! or #</li>
+                            </ul>
+                            <p class="field-error" id="signup-password-error"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="signup-confirm">Confirm password</label>
+                            <input
+                                class="form-control"
+                                id="signup-confirm"
+                                name="confirmPassword"
+                                type="password"
+                                autocomplete="new-password"
+                                data-label="Password confirmation"
+                                data-required
+                                data-match="signup-password"
+                                aria-describedby="signup-confirm-error"
+                            />
+                            <p class="field-error" id="signup-confirm-error"></p>
+                        </div>
+                        <div class="form-check mb-4">
+                            <input
+                                class="form-check-input"
+                                id="signup-consent"
+                                name="consent"
+                                type="checkbox"
+                                data-label="The storage notice"
+                                data-required
+                                data-message="Please confirm that you understand where your data is stored."
+                                aria-describedby="signup-consent-error"
+                            />
+                            <label class="form-check-label" for="signup-consent"
+                                >I understand my profile is stored only in this browser.</label
+                            >
+                            <p class="field-error" id="signup-consent-error"></p>
+                        </div>
+                        <p class="form-status" role="status" aria-live="polite"></p>
+                        <button class="btn btn-primary btn-lg w-100" type="submit">
+                            Create account
+                        </button>
+                        <p class="auth-switch mt-4 mb-0">
+                            Already have an account? <a href="login.html">Log in</a>
+                        </p>
+                    </form>
+                </div>
+            </section>
+        </main>
+        <footer id="main-footer" class="site-footer pt-5 pb-4">
+            <div class="container">
+                <div class="footer-content pb-4 pb-lg-5">
+                    <div class="footer-brand">
+                        <a href="index.html" class="logo" aria-label="GYMZONE home">
+                            <img
+                                class="logo-on-dark"
+                                src="images/gymzone-logo-dark.png"
+                                alt="GYMZONE"
+                                width="914"
+                                height="202"
+                            /><img
+                                class="logo-on-light"
+                                src="images/gymzone-logo-light.png"
+                                alt=""
+                                width="914"
+                                height="202"
+                            />
+                        </a>
+                        <p class="mt-3 mb-0">
+                            Your guide to strength, technique and a balanced training routine.
+                        </p>
+                    </div>
+                    <nav class="footer-links" aria-label="Footer training navigation">
+                        <h2 class="footer-heading mb-2">Explore training</h2>
+                        <a href="upper.html">Upper Body</a>
+                        <a href="lower.html">Lower Body</a>
+                        <a href="crossfit.html">CrossFit</a>
+                        <a href="library.html">Exercise Library</a>
+                        <a href="about.html">About GYMZONE</a>
+                    </nav>
+                    <div class="footer-connect">
+                        <h2 class="footer-heading mb-3">Let's talk training</h2>
+                        <p class="mb-3">
+                            Have a question about the exercises or your next workout?
+                        </p>
+                        <a href="contact.html" class="btn btn-outline-primary">Contact us</a>
+                        <a class="footer-email mt-3" href="mailto:ernarface12@gmail.com"
+                            >ernarface12@gmail.com</a
+                        >
+                    </div>
+                </div>
+                <div class="footer-tools py-4">
+                    <div class="footer-clock">
+                        <span class="footer-heading">Local date &amp; time</span>
+                        <time id="current-datetime" datetime="2026-11-18" aria-live="off"
+                            >Loading local time...</time
+                        >
+                    </div>
+                    <div class="footer-tool-buttons">
+                        <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            id="toggle-sound"
+                            aria-pressed="false"
+                        >
+                            Sound: Off
+                        </button>
+                        <a href="signup.html" class="btn btn-primary btn-sm" data-join-link
+                            >Join GYMZONE</a
+                        >
+                    </div>
+                    <span id="sound-status" class="visually-hidden" role="status"></span>
+                </div>
+                <div class="footer-bottom pt-4">
+                    <div class="footer-credits">
+                        <p class="mb-1">Team: Umirgaliyev Yernar &amp; Kazybek Karabala</p>
+                        <p class="mb-0">Astana IT University &copy; 2026 · GYMZONE</p>
+                    </div>
+                    <a class="footer-top" href="#main-header"
+                        >Back to top <span aria-hidden="true">↑</span></a
+                    >
+                </div>
+            </div>
+        </footer>
+        <script src="vendor/bootstrap/bootstrap.bundle.min.js"></script>
+        <audio id="completion-sound" src="audio/success.wav" preload="none"></audio>
+        <script src="js/exercises.js" defer></script>
+        <script src="js/main.js" defer></script>
+        <script src="js/advanced.js" defer></script>
+        <script src="js/auth.js" defer></script>
+    </body>
+</html>

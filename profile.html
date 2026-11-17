@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en" data-theme="dark" data-bs-theme="dark">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="Your GYMZONE profile, saved exercises and training goal."
+        />
+        <meta name="theme-color" content="#111715" />
+        <title>Your Profile | GYMZONE</title>
+        <script src="js/theme.js"></script>
+        <link rel="icon" type="image/png" href="images/gymzone-logo.png" />
+        <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/interactive.css" />
+        <link rel="stylesheet" href="css/advanced.css" />
+        <link rel="stylesheet" href="css/jquery-features.css" />
+        <link rel="stylesheet" href="css/pages.css" />
+        <script src="https://code.jquery.com/jquery-4.0.0.min.js"></script>
+        <script src="js/jquery-fallback.js"></script>
+        <script src="js/script.js"></script>
+    </head>
+    <body>
+        <a class="skip-link" href="#main-content">Skip to main content</a>
+        <header id="main-header" class="site-header">
+            <nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Main navigation">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html"
+                        ><img
+                            class="logo-on-dark"
+                            src="images/gymzone-logo-dark.png"
+                            alt="GYMZONE home"
+                            width="914"
+                            height="202" /><img
+                            class="logo-on-light"
+                            src="images/gymzone-logo-light.png"
+                            alt=""
+                            width="914"
+                            height="202"
+                    /></a>
+                    <div class="nav-actions">
+                        <button
+                            type="button"
+                            class="theme-toggle"
+                            data-theme-toggle
+                            aria-pressed="false"
+                            aria-label="Switch color theme"
+                        >
+                            <svg
+                                class="theme-icon theme-icon-sun"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <path
+                                    d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"
+                                ></path>
+                            </svg>
+                            <svg
+                                class="theme-icon theme-icon-moon"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"
+                                ></path>
+                            </svg>
+                        </button>
+                        <button
+                            class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#mainNavbar"
+                            aria-controls="mainNavbar"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                        >
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="mainNavbar">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="upper.html">Upper Body</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="lower.html">Lower Body</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="crossfit.html">CrossFit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="library.html">Library</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about.html">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a
+                                    class="nav-link nav-account active"
+                                    aria-current="page"
+                                    href="login.html"
+                                    data-account-link
+                                    >Log in</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main id="main-content">
+            <section class="page-title py-5">
+                <div class="container">
+                    <p class="eyebrow">Your profile</p>
+                    <h1 id="profile-greeting">WELCOME BACK</h1>
+                    <p>Your details, training focus and saved exercises in one place.</p>
+                </div>
+            </section>
+            <section class="section py-5">
+                <div class="container profile-layout">
+                    <article class="profile-card" aria-labelledby="profile-name">
+                        <div class="profile-avatar" id="profile-avatar" aria-hidden="true">GZ</div>
+                        <h2 id="profile-name" class="h3 mb-1">Loading...</h2>
+                        <p class="profile-goal-badge" id="profile-goal-label"></p>
+                        <dl class="profile-details">
+                            <dt>Email</dt>
+                            <dd id="profile-email"></dd>
+                            <dt>Phone</dt>
+                            <dd id="profile-phone"></dd>
+                            <dt>Member since</dt>
+                            <dd id="profile-since"></dd>
+                        </dl>
+                        <div class="profile-actions">
+                            <button type="button" class="btn btn-primary" id="logout-button">
+                                Log out
+                            </button>
+                            <button
+                                type="button"
+                                class="btn btn-outline-danger"
+                                id="delete-account-button"
+                            >
+                                Delete account
+                            </button>
+                        </div>
+                    </article>
+                    <div class="profile-main">
+                        <section class="focus-card" aria-labelledby="focus-title">
+                            <h2 class="h4" id="focus-title">Your weekly focus</h2>
+                            <p id="focus-text" class="interactive-muted mb-3"></p>
+                            <a
+                                id="focus-link"
+                                class="btn btn-outline-primary btn-sm"
+                                href="upper.html"
+                                >Open guides</a
+                            >
+                        </section>
+                        <form
+                            id="profile-edit-form"
+                            class="form-card p-4"
+                            data-validate
+                            data-auth="update"
+                            novalidate
+                        >
+                            <h2 class="h4 mb-3">Edit details</h2>
+                            <div class="row g-3">
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label" for="edit-name">Full name</label>
+                                    <input
+                                        class="form-control"
+                                        id="edit-name"
+                                        name="name"
+                                        type="text"
+                                        autocomplete="name"
+                                        data-label="Full name"
+                                        data-required
+                                        data-rule="name"
+                                        aria-describedby="edit-name-error"
+                                    />
+                                    <p class="field-error" id="edit-name-error"></p>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label" for="edit-phone">Phone number</label>
+                                    <input
+                                        class="form-control"
+                                        id="edit-phone"
+                                        name="phone"
+                                        type="tel"
+                                        autocomplete="tel"
+                                        data-label="Phone number"
+                                        data-required
+                                        data-rule="phone"
+                                        aria-describedby="edit-phone-error"
+                                    />
+                                    <p class="field-error" id="edit-phone-error"></p>
+                                </div>
+                                <div class="col-12">
+                                    <label class="form-label" for="edit-goal">Training goal</label>
+                                    <select
+                                        class="form-select"
+                                        id="edit-goal"
+                                        name="goal"
+                                        data-label="a training goal"
+                                        data-required
+                                        aria-describedby="edit-goal-error"
+                                    >
+                                        <option value="">Select your goal</option>
+                                        <option value="strength">Build strength</option>
+                                        <option value="muscle">Build muscle</option>
+                                        <option value="endurance">Improve endurance</option>
+                                        <option value="technique">Learn proper technique</option>
+                                    </select>
+                                    <p class="field-error" id="edit-goal-error"></p>
+                                </div>
+                            </div>
+                            <p class="form-status mt-3" role="status" aria-live="polite"></p>
+                            <button class="btn btn-primary mt-3" type="submit">Save changes</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+            <section class="section saved-section py-5" aria-labelledby="saved-title">
+                <div class="container">
+                    <div class="saved-header">
+                        <h2 class="section-title mb-0" id="saved-title">SAVED EXERCISES</h2>
+                        <a class="btn btn-outline-primary btn-sm" href="library.html"
+                            >Browse the library</a
+                        >
+                    </div>
+                    <p class="catalog-count" id="saved-count" role="status"></p>
+                    <ul class="saved-list" id="saved-list"></ul>
+                    <div class="empty-state" id="saved-empty" hidden>
+                        <h3 class="h5">No saved exercises yet</h3>
+                        <p class="interactive-muted mb-3">
+                            Open the Exercise Library and press Save on any exercise to keep it
+                            here.
+                        </p>
+                        <a class="btn btn-primary btn-sm" href="library.html">Open the library</a>
+                    </div>
+                    <p class="last-search" id="last-search" hidden></p>
+                </div>
+            </section>
+        </main>
+        <footer id="main-footer" class="site-footer pt-5 pb-4">
+            <div class="container">
+                <div class="footer-content pb-4 pb-lg-5">
+                    <div class="footer-brand">
+                        <a href="index.html" class="logo" aria-label="GYMZONE home">
+                            <img
+                                class="logo-on-dark"
+                                src="images/gymzone-logo-dark.png"
+                                alt="GYMZONE"
+                                width="914"
+                                height="202"
+                            /><img
+                                class="logo-on-light"
+                                src="images/gymzone-logo-light.png"
+                                alt=""
+                                width="914"
+                                height="202"
+                            />
+                        </a>
+                        <p class="mt-3 mb-0">
+                            Your guide to strength, technique and a balanced training routine.
+                        </p>
+                    </div>
+                    <nav class="footer-links" aria-label="Footer training navigation">
+                        <h2 class="footer-heading mb-2">Explore training</h2>
+                        <a href="upper.html">Upper Body</a>
+                        <a href="lower.html">Lower Body</a>
+                        <a href="crossfit.html">CrossFit</a>
+                        <a href="library.html">Exercise Library</a>
+                        <a href="about.html">About GYMZONE</a>
+                    </nav>
+                    <div class="footer-connect">
+                        <h2 class="footer-heading mb-3">Let's talk training</h2>
+                        <p class="mb-3">
+                            Have a question about the exercises or your next workout?
+                        </p>
+                        <a href="contact.html" class="btn btn-outline-primary">Contact us</a>
+                        <a class="footer-email mt-3" href="mailto:ernarface12@gmail.com"
+                            >ernarface12@gmail.com</a
+                        >
+                    </div>
+                </div>
+                <div class="footer-tools py-4">
+                    <div class="footer-clock">
+                        <span class="footer-heading">Local date &amp; time</span>
+                        <time id="current-datetime" datetime="2026-11-18" aria-live="off"
+                            >Loading local time...</time
+                        >
+                    </div>
+                    <div class="footer-tool-buttons">
+                        <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            id="toggle-sound"
+                            aria-pressed="false"
+                        >
+                            Sound: Off
+                        </button>
+                        <a href="signup.html" class="btn btn-primary btn-sm" data-join-link
+                            >Join GYMZONE</a
+                        >
+                    </div>
+                    <span id="sound-status" class="visually-hidden" role="status"></span>
+                </div>
+                <div class="footer-bottom pt-4">
+                    <div class="footer-credits">
+                        <p class="mb-1">Team: Umirgaliyev Yernar &amp; Kazybek Karabala</p>
+                        <p class="mb-0">Astana IT University &copy; 2026 · GYMZONE</p>
+                    </div>
+                    <a class="footer-top" href="#main-header"
+                        >Back to top <span aria-hidden="true">↑</span></a
+                    >
+                </div>
+            </div>
+        </footer>
+        <script src="vendor/bootstrap/bootstrap.bundle.min.js"></script>
+        <audio id="completion-sound" src="audio/success.wav" preload="none"></audio>
+        <script src="js/exercises.js" defer></script>
+        <script src="js/main.js" defer></script>
+        <script src="js/advanced.js" defer></script>
+        <script src="js/auth.js" defer></script>
+    </body>
+</html>

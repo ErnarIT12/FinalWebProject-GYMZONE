@@ -32,6 +32,11 @@
     --accent: #a9f51b;
     --accent-hover: #c5ff61;
     --accent-ink: #17210c;
+    --danger: #ffaaa4;
+    --field-border: #626e61;
+    --control-bg: #232a24;
+    --control-hover: #374039;
+    --focus-ring: rgb(169 245 27 / 18%);
     --radius: 8px;
     --font-body: "DM Sans", sans-serif;
     --font-heading: "Space Grotesk", sans-serif;
@@ -39,6 +44,25 @@
     --bs-body-color: var(--ink);
     --bs-border-color: var(--line);
     color-scheme: dark;
+}
+
+/* Light mode: js/theme.js sets data-theme="light" on <html> and saves the choice.
+   Every color comes from these variables, so components switch together.
+   The accent is a darker green here, so text and buttons keep a contrast of at least 4.5:1. */
+:root[data-theme="light"] {
+    --paper: #f6f8f3;
+    --surface: #ffffff;
+    --surface-raised: #e9efe4;
+    --ink: #142016;
+    --muted: #4a5a4c;
+    --line: #d3dccd;
+    --accent: #3d7a00;
+    --accent-hover: #2f6000;
+    --accent-ink: #ffffff;
+    --danger: #b42318;
+    --field-border: #8a978a;
+    --focus-ring: rgb(61 122 0 / 22%);
+    color-scheme: light;
 }
 
 * {
@@ -146,6 +170,7 @@ textarea:focus-visible {
 
 .navbar {
     --bs-dark-rgb: 17, 23, 21;
+    --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28242, 244, 238, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
     --bs-navbar-color: var(--muted);
     --bs-navbar-hover-color: var(--ink);
     --bs-navbar-active-color: var(--ink);
@@ -607,7 +632,7 @@ a.card:hover {
     height: 44px;
     border: 1px solid var(--line);
     border-radius: var(--radius);
-    background: #232a24;
+    background: var(--control-bg);
     opacity: 1;
 }
 
@@ -621,7 +646,7 @@ a.card:hover {
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-    background: #374039;
+    background: var(--control-hover);
     opacity: 1;
 }
 
@@ -719,43 +744,14 @@ a.card:hover {
     object-fit: cover;
 }
 
-.team-link,
-.footer-contact {
+.team-link {
     color: var(--accent);
     font-size: 0.9rem;
     text-underline-offset: 5px;
 }
 
-.team-link:hover,
-.footer-contact:hover {
+.team-link:hover {
     text-decoration: underline;
-}
-
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 24px;
-}
-
-.gallery-item {
-    margin: 0;
-    overflow: hidden;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-}
-
-.gallery-item img {
-    height: 240px;
-    object-fit: contain;
-    background: #fff;
-}
-
-.gallery-item figcaption {
-    padding: 16px 20px;
-    background: var(--surface);
-    color: var(--ink);
-    font-family: var(--font-heading);
-    font-size: 0.9rem;
 }
 
 /* Contact page */
@@ -815,69 +811,69 @@ a.card:hover {
     font-size: 0.8rem;
 }
 
-#contact-form {
+.form-card {
     border: 1px solid var(--line);
     border-top: 3px solid var(--accent);
     border-radius: var(--radius);
     background: var(--surface);
 }
 
-#contact-form h2 {
+.form-card h2 {
     font-size: 1.75rem;
     letter-spacing: -0.04em;
 }
 
-#contact-form label,
-#contact-form legend {
+.form-card label,
+.form-card legend {
     color: var(--ink);
     font-size: 0.9rem;
     font-weight: 700;
 }
 
-#contact-form .form-control,
-#contact-form .form-select {
+.form-card .form-control,
+.form-card .form-select {
     min-height: 48px;
-    border-color: #626e61;
+    border-color: var(--field-border);
     border-radius: var(--radius);
     background-color: var(--paper);
     color: var(--ink);
     font: inherit;
 }
 
-#contact-form .form-control::placeholder {
+.form-card .form-control::placeholder {
     color: var(--muted);
     opacity: 1;
 }
 
-#contact-form .form-control:focus,
-#contact-form .form-select:focus,
-#contact-form .form-check-input:focus {
+.form-card .form-control:focus,
+.form-card .form-select:focus,
+.form-card .form-check-input:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgb(169 245 27 / 18%);
+    box-shadow: 0 0 0 3px var(--focus-ring);
 }
 
-#contact-form .form-check-input {
-    border-color: #879380;
+.form-card .form-check-input {
+    border-color: var(--field-border);
     background-color: var(--paper);
 }
 
-#contact-form .form-check-input:checked {
+.form-card .form-check-input:checked {
     border-color: var(--accent);
-    background-color: #51631e;
+    background-color: var(--accent);
 }
 
-#contact-form .input-group-text {
-    border-color: #626e61;
+.form-card .input-group-text {
+    border-color: var(--field-border);
     background: var(--surface-raised);
     color: var(--accent);
 }
 
-#contact-form .input-group > .form-control {
+.form-card .input-group > .form-control {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-#contact-form textarea {
+.form-card textarea {
     resize: vertical;
 }
 
@@ -1105,8 +1101,7 @@ a.card:hover {
         font-size: 2rem;
     }
 
-    .media-card-group,
-    .gallery {
+    .media-card-group {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
@@ -1178,8 +1173,7 @@ a.card:hover {
     }
 
     .media-card-group,
-    .card-grid,
-    .gallery {
+    .card-grid {
         grid-template-columns: 1fr;
     }
 
