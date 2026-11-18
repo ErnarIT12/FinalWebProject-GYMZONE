@@ -10,6 +10,7 @@
         <meta name="theme-color" content="#111715" />
         <title>Your Profile | GYMZONE</title>
         <script src="js/theme.js"></script>
+        <script src="js/storage.js"></script>
         <link rel="icon" type="image/png" href="images/gymzone-logo.png" />
         <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/style.css" />
@@ -167,6 +168,12 @@
                             data-auth="update"
                             novalidate
                         >
+                            <noscript
+                                ><p class="form-status is-error" data-js-notice>
+                                    This form needs JavaScript. Nothing is sent anywhere, your data
+                                    stays in your browser. Please turn JavaScript on to continue.
+                                </p></noscript
+                            >
                             <h2 class="h4 mb-3">Edit details</h2>
                             <div class="row g-3">
                                 <div class="col-12 col-md-6">
@@ -219,7 +226,14 @@
                                 </div>
                             </div>
                             <p class="form-status mt-3" role="status" aria-live="polite"></p>
-                            <button class="btn btn-primary mt-3" type="submit">Save changes</button>
+                            <button
+                                class="btn btn-primary mt-3"
+                                type="submit"
+                                disabled
+                                data-requires-js
+                            >
+                                Save changes
+                            </button>
                         </form>
                     </div>
                 </div>

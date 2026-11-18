@@ -1,11 +1,9 @@
 body,
-.sidebar,
 .page-title,
 #main-footer,
 .navbar,
 .faq-item,
-#categories,
-#bootstrap-cards,
+#exercise-explorer,
 .team-section {
     transition:
         background-color 300ms ease,

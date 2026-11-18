@@ -27,7 +27,7 @@ function buildHighlightedNodes(text, pattern) {
 }
 
 // Exercise Explorer: live filter and autocomplete.
-// The query and category are saved in localStorage and restored on the next visit.
+// The query and category are saved per account and restored on the next visit.
 function initializeLiveSearch() {
     const $input = $("#exercise-search");
     if (!$input.length) return;
@@ -36,6 +36,10 @@ function initializeLiveSearch() {
     const $count = $("#exercise-count");
     const $empty = $("#exercise-empty");
     const $filters = $("[data-exercise-filter]");
+    const $showAll = $("#exercise-show-all");
+    // Without a search the list starts short, so the home page stays easy to scan.
+    const PREVIEW_SIZE = 6;
+    let expanded = false;
     let activeIndex = -1;
 
     function currentCategory() {
@@ -52,17 +56,20 @@ function initializeLiveSearch() {
             return text.toLowerCase().includes(query);
         });
 
-        $cards.not($matches).hide();
-        $matches.show();
-        localStorage.setItem(
-            EXPLORER_KEY,
-            JSON.stringify({ query: typed, category: currentCategory() }),
-        );
+        // A search always shows every match. Otherwise only the first cards are shown until
+        // the user asks for the whole list.
+        const limit = query || expanded ? Infinity : PREVIEW_SIZE;
+        const $visible = $matches.slice(0, limit);
+        $cards.not($visible).hide();
+        $visible.show();
+        writeStorage(accountKey(EXPLORER_KEY), { query: typed, category: currentCategory() });
         $empty.prop("hidden", $matches.length > 0);
+        const hiddenCount = $matches.length - $visible.length;
+        $showAll.prop("hidden", hiddenCount === 0).text(`Show all ${$matches.length} exercises`);
         $count.text(
             query
                 ? `${$matches.length} of ${$cards.length} exercises match "${typed}" in ${label}.`
-                : `${$cards.length} exercises shown: ${label}.`,
+                : `${$visible.length} of ${$cards.length} exercises shown: ${label}.`,
         );
         loadVisibleImages();
     }
@@ -158,6 +165,12 @@ function initializeLiveSearch() {
     $list.on("click", ".search-suggestion", function () {
         selectSuggestion($(this).attr("data-exercise-id"));
     });
+    $showAll.on("click", function () {
+        expanded = true;
+        applyFilter();
+        // Focus moves to the first card that was hidden, so keyboard users continue from there.
+        $results.find(".catalog-result:visible").eq(PREVIEW_SIZE).find("a").trigger("focus");
+    });
     // Runs after the handler in advanced.js, which has just rebuilt the cards.
     $filters.on("click", applyFilter);
 
@@ -172,12 +185,10 @@ function initializeLiveSearch() {
 
 const EXPLORER_KEY = "gymzone-explorer";
 
+// Each account (and the guest) has its own saved search. See accountKey() in storage.js.
 function readSavedSearch() {
-    try {
-        return JSON.parse(localStorage.getItem(EXPLORER_KEY)) || {};
-    } catch {
-        return {};
-    }
+    const saved = readStorage(accountKey(EXPLORER_KEY), {});
+    return saved && typeof saved === "object" ? saved : {};
 }
 
 // FAQ search: highlights every match in the FAQ and opens the answers that contain one.
@@ -299,8 +310,8 @@ function initializeSubmitSpinner() {
     if (!$form.length) return;
 
     $form.on("submit", function (event) {
-        // main.js runs first and cancels the event when a field is invalid.
-        if (event.isDefaultPrevented()) return;
+        // main.js stops the event when a field is invalid, so this runs only for valid data.
+        // The default submission is always cancelled: nothing is sent to a server.
         event.preventDefault();
 
         const $button = $form.find('[type="submit"]');
@@ -322,6 +333,8 @@ function initializeSubmitSpinner() {
             showToast("Form submitted successfully.");
         }, 1800);
     });
+    // The Send button is disabled in the HTML until this handler exists.
+    enableSubmit($form[0]);
 }
 
 // Toast: temporary notification. Called from this file, auth.js and api.js.

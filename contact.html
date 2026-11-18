@@ -7,6 +7,7 @@
         <meta name="theme-color" content="#111715" />
         <title>Contact | GYMZONE</title>
         <script src="js/theme.js"></script>
+        <script src="js/storage.js"></script>
         <link rel="icon" type="image/png" href="images/gymzone-logo.png" />
         <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/style.css" />
@@ -211,6 +212,12 @@
                             data-validate
                             novalidate
                         >
+                            <noscript
+                                ><p class="form-status is-error" data-js-notice>
+                                    This form needs JavaScript. Nothing is sent anywhere, your data
+                                    stays in your browser. Please turn JavaScript on to continue.
+                                </p></noscript
+                            >
                             <h2 class="mb-2">Send a Message</h2>
                             <p class="form-help mb-4">
                                 All fields except the checkbox are required.
@@ -360,7 +367,12 @@
                                 >
                             </div>
                             <p class="form-status" role="status" aria-live="polite"></p>
-                            <button class="btn btn-primary btn-lg w-100" type="submit">
+                            <button
+                                class="btn btn-primary btn-lg w-100"
+                                type="submit"
+                                disabled
+                                data-requires-js
+                            >
                                 Send Message
                             </button>
                         </form>

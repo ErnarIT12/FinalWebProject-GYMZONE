@@ -10,6 +10,7 @@
         <meta name="theme-color" content="#111715" />
         <title>Sign Up | GYMZONE</title>
         <script src="js/theme.js"></script>
+        <script src="js/storage.js"></script>
         <link rel="icon" type="image/png" href="images/gymzone-logo.png" />
         <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/style.css" />
@@ -148,6 +149,12 @@
                         data-auth="signup"
                         novalidate
                     >
+                        <noscript
+                            ><p class="form-status is-error" data-js-notice>
+                                This form needs JavaScript. Nothing is sent anywhere, your data
+                                stays in your browser. Please turn JavaScript on to continue.
+                            </p></noscript
+                        >
                         <h2 class="mb-4">Sign up</h2>
                         <div class="mb-3">
                             <label class="form-label" for="signup-name">Full name</label>
@@ -287,7 +294,12 @@
                             <p class="field-error" id="signup-consent-error"></p>
                         </div>
                         <p class="form-status" role="status" aria-live="polite"></p>
-                        <button class="btn btn-primary btn-lg w-100" type="submit">
+                        <button
+                            class="btn btn-primary btn-lg w-100"
+                            type="submit"
+                            disabled
+                            data-requires-js
+                        >
                             Create account
                         </button>
                         <p class="auth-switch mt-4 mb-0">

@@ -26,7 +26,10 @@ function initializeLibrary() {
     const more = document.querySelector("#library-more");
     const empty = document.querySelector("#library-empty");
 
-    const saved = readStorage(LIBRARY_KEY, {});
+    // The account the cards were drawn for. Save buttons act for this account only.
+    let viewerEmail = authStore.currentUser()?.email ?? null;
+    const savedState = readStorage(accountKey(LIBRARY_KEY, viewerEmail), {});
+    const saved = savedState && typeof savedState === "object" ? savedState : {};
     const cache = new Map(); // category id -> { exercises, shown, next }
     let category = categoryButtons.some((button) => button.dataset.category === saved.category)
         ? saved.category
@@ -35,7 +38,10 @@ function initializeLibrary() {
     let lastRequest = null;
 
     function saveState() {
-        writeStorage(LIBRARY_KEY, { category, query: search.value.trim() });
+        writeStorage(accountKey(LIBRARY_KEY, viewerEmail), {
+            category,
+            query: search.value.trim(),
+        });
     }
 
     function categoryName(id = category) {
@@ -81,7 +87,7 @@ function initializeLibrary() {
         try {
             const response = await fetch(url, { signal: request.signal });
             if (!response.ok)
-                throw new Error(`The server answered with status ${response.status}.`);
+                throw Object.assign(new Error("HTTP error"), { status: response.status });
             return await response.json();
         } finally {
             window.clearTimeout(timer);
@@ -98,14 +104,20 @@ function initializeLibrary() {
     }
 
     function showError(error) {
-        let reason = "Something went wrong while reading the data.";
+        let message = "Something went wrong while reading the data. Please try again.";
         // abort("timeout") rejects fetch() with that exact string.
-        if (error === "timeout") reason = "The request took too long.";
-        else if (!navigator.onLine) reason = "You appear to be offline.";
-        // fetch() throws a TypeError when the server cannot be reached at all.
-        else if (error?.name === "TypeError") reason = "The exercise server could not be reached.";
-        else if (error?.message) reason = error.message;
-        errorText.textContent = `${reason} Check your connection and try again.`;
+        if (error === "timeout") {
+            message = "The request took too long. Check your connection and try again.";
+        } else if (!navigator.onLine) {
+            message = "You appear to be offline. Check your connection and try again.";
+        } else if (error?.name === "TypeError") {
+            // fetch() throws a TypeError when the server cannot be reached at all.
+            message =
+                "The exercise server could not be reached. Check your connection and try again.";
+        } else if (error?.status) {
+            message = `The exercise server answered with an error (status ${error.status}). Please try again in a moment.`;
+        }
+        errorText.textContent = message;
         errorBox.hidden = false;
         status.textContent = "Exercises could not be loaded.";
     }
@@ -171,7 +183,7 @@ function initializeLibrary() {
     }
 
     function renderSaveButton(button, exercise) {
-        const isSaved = authStore.isFavorite(exercise.id);
+        const isSaved = authStore.isFavorite(exercise.id, viewerEmail);
         button.classList.toggle("is-saved", isSaved);
         button.setAttribute("aria-pressed", String(isSaved));
         button.querySelector("span").textContent = isSaved ? "Saved" : "Save";
@@ -223,18 +235,28 @@ function initializeLibrary() {
             '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"></path></svg><span>Save</span>';
         save.setAttribute("aria-label", `Save ${exercise.name} to your profile`);
         renderSaveButton(save, exercise);
-        save.addEventListener("click", () => {
+        save.addEventListener("click", async () => {
             const { id, name, category: group, equipment } = exercise;
-            const result = authStore.toggleFavorite({ id, name, category: group, equipment });
-            if (result === null) {
+            const result = await authStore.toggleFavorite(
+                { id, name, category: group, equipment },
+                viewerEmail,
+            );
+            if (result.error === "guest") {
                 showToast("Log in to save exercises to your profile.", "error");
                 status.innerHTML =
                     'Saving needs an account. <a href="login.html">Log in</a> or <a href="signup.html">sign up</a>.';
                 return;
             }
+            if (!result.ok) {
+                showToast(errorMessage(result.error), "error");
+                followSession();
+                return;
+            }
             renderSaveButton(save, exercise);
             showToast(
-                result ? `${name} saved to your profile.` : `${name} removed from your profile.`,
+                result.saved
+                    ? `${name} saved to your profile.`
+                    : `${name} removed from your profile.`,
             );
         });
         body.append(save);
@@ -301,7 +323,19 @@ function initializeLibrary() {
     more.addEventListener("click", () => load(true));
     retry.addEventListener("click", () => lastRequest?.());
 
-    search.value = saved.query || "";
+    // Another tab logged in, out or changed saved exercises: redraw the Save buttons for the
+    // account that is logged in now.
+    function followSession() {
+        viewerEmail = authStore.currentUser()?.email ?? null;
+        render();
+    }
+    window.addEventListener("storage", (event) => {
+        if (event.key === null || event.key === SESSION_STORAGE_KEY || event.key === USERS_KEY) {
+            followSession();
+        }
+    });
+
+    search.value = typeof saved.query === "string" ? saved.query : "";
     selectCategory(category);
 }
 

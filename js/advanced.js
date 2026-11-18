@@ -100,66 +100,6 @@ function initializeExerciseFilters() {
     renderCategory("all");
 }
 
-// Clicking a thumbnail changes the large image, its text and the guide link.
-function initializeMovementGallery() {
-    const thumbnails = document.querySelector("#gallery-thumbnails");
-    if (!thumbnails) return;
-    const image = document.querySelector("#gallery-display");
-    const title = document.querySelector("#gallery-title");
-    const description = document.querySelector("#gallery-description");
-    const guide = document.querySelector("#gallery-guide");
-    const status = document.querySelector("#gallery-status");
-
-    function selectExercise(id, animate = true) {
-        const exercise = exerciseLibrary.findById(id);
-        if (!exercise) return;
-        // The first image waits for lazy loading. A click shows the new one at once.
-        image.dataset.src = exercise.image;
-        if (animate) image.setAttribute("src", exercise.image);
-        image.setAttribute("alt", exercise.alt);
-        title.textContent = exercise.name;
-        description.textContent = exercise.description;
-        guide.setAttribute("href", exercise.guide);
-        guide.setAttribute("aria-label", `${exercise.name}: open technique guide`);
-        thumbnails.querySelectorAll("button").forEach((button) => {
-            button.setAttribute("aria-pressed", String(button.dataset.exerciseId === id));
-        });
-        status.textContent = `Selected exercise: ${exercise.name}.`;
-        if (animate && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-            image.getAnimations().forEach((animation) => animation.cancel());
-            image.animate(
-                [
-                    { opacity: 0.35, transform: "scale(0.98)" },
-                    { opacity: 1, transform: "scale(1)" },
-                ],
-                { duration: 240, easing: "ease-out" },
-            );
-        }
-    }
-
-    const fragment = document.createDocumentFragment();
-    for (const exercise of exerciseLibrary.items) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "gallery-thumbnail";
-        button.dataset.exerciseId = exercise.id;
-        button.setAttribute("aria-label", `Show ${exercise.name}`);
-        button.setAttribute("aria-controls", "gallery-display");
-        const thumbnail = document.createElement("img");
-        thumbnail.className = "lazy-image";
-        thumbnail.src = LAZY_PLACEHOLDER;
-        thumbnail.dataset.src = exercise.image;
-        thumbnail.alt = "";
-        const label = document.createElement("span");
-        label.textContent = exercise.name;
-        button.append(thumbnail, label);
-        button.addEventListener("click", () => selectExercise(exercise.id));
-        fragment.append(button);
-    }
-    thumbnails.replaceChildren(fragment);
-    selectExercise(exerciseLibrary.items[0].id, false);
-}
-
 // Sound toggle (saved in localStorage). One audio element restarts on each play, so sounds never overlap.
 // Returns the function that plays the success sound.
 function initializeSoundEffects() {
@@ -168,7 +108,7 @@ function initializeSoundEffects() {
     const status = document.querySelector("#sound-status");
     if (!audio || !button) return () => {};
     // The choice is saved, so sound stays on when the user moves to another page.
-    let enabled = localStorage.getItem("gymzone-sound") === "on";
+    let enabled = readStorage("gymzone-sound", "off") === "on";
 
     function renderButton() {
         button.setAttribute("aria-pressed", String(enabled));
@@ -188,7 +128,7 @@ function initializeSoundEffects() {
 
     button.addEventListener("click", () => {
         enabled = !enabled;
-        localStorage.setItem("gymzone-sound", enabled ? "on" : "off");
+        writeStorage("gymzone-sound", enabled ? "on" : "off");
         renderButton();
         status.textContent = enabled ? "Sound enabled. Playing a preview." : "Sound muted.";
         if (enabled) playSuccessSound();
@@ -206,6 +146,5 @@ function initializeSoundEffects() {
 
 initializeKeyboardNavigation();
 initializeExerciseFilters();
-initializeMovementGallery();
 // auth.js plays this sound after a successful sign up or log in.
 const playSuccessSound = initializeSoundEffects();

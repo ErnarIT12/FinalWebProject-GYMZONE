@@ -150,20 +150,8 @@ textarea:focus-visible {
     outline-offset: 5px;
 }
 
-/* Shared layout and navigation */
-.page-layout {
-    display: grid;
-    min-height: 100dvh;
-    grid-template-columns: 208px minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas:
-        "header header"
-        "sidebar main"
-        "footer footer";
-}
-
+/* Shared navigation */
 #main-header {
-    grid-area: header;
     border-bottom: 1px solid var(--line);
     background: var(--paper);
 }
@@ -202,8 +190,7 @@ textarea:focus-visible {
 .logo,
 .footer-links a,
 .footer-email,
-.footer-top,
-.sidebar-nav a {
+.footer-top {
     transition:
         color 220ms ease,
         opacity 220ms ease,
@@ -250,57 +237,6 @@ textarea:focus-visible {
     min-width: 44px;
     min-height: 44px;
     border-radius: var(--radius);
-}
-
-.sidebar {
-    grid-area: sidebar;
-    padding: 48px 24px;
-    border-right: 1px solid var(--line);
-    background: var(--surface);
-}
-
-.sidebar-label {
-    color: var(--accent);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.13em;
-}
-
-.sidebar h2 {
-    margin-block: 24px 16px;
-    font-size: 1.5rem;
-    line-height: 1.2;
-    letter-spacing: -0.035em;
-}
-
-.sidebar > p:not(.sidebar-label) {
-    color: var(--muted);
-    font-size: 0.85rem;
-}
-
-.sidebar-nav {
-    display: flex;
-    flex-direction: column;
-    margin-top: 32px;
-}
-
-.sidebar-nav a {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: 48px;
-    border-bottom: 1px solid var(--line);
-    font-size: 0.85rem;
-}
-
-.sidebar-nav a::after {
-    content: "↗";
-    color: var(--accent);
-}
-
-.site-main {
-    grid-area: main;
-    min-width: 0;
 }
 
 /* Hero and section typography */
@@ -373,14 +309,12 @@ textarea:focus-visible {
     font-size: 1.1rem;
 }
 
-#categories,
-#bootstrap-cards,
+#exercise-explorer,
 .team-section {
     background: var(--surface);
 }
 
-#workout-carousel,
-#gallery {
+#workout-carousel {
     border-block: 1px solid var(--line);
 }
 
@@ -583,11 +517,6 @@ a.card:hover {
     gap: 8px;
 }
 
-#workout-carousel .bootstrap-card {
-    border-top: 3px solid var(--accent);
-    background: var(--surface);
-}
-
 .btn-group {
     max-width: 100%;
 }
@@ -596,7 +525,10 @@ a.card:hover {
     padding-inline: 12px;
 }
 
-/* Carousel keeps Bootstrap's slide and control behavior */
+/* Carousel keeps Bootstrap's slide and control behavior. In the dark theme Bootstrap adds
+   "[data-bs-theme=dark] .carousel" rules that turn the arrow icons and indicators black,
+   which hides them on our dark buttons. The ".carousel.carousel-shell" rules below have the
+   same weight and load later, so the arrows stay white and the indicators use our colors. */
 .carousel-shell {
     overflow: hidden;
     border: 1px solid var(--line);
@@ -645,9 +577,18 @@ a.card:hover {
 }
 
 .carousel-control-prev:hover,
-.carousel-control-next:hover {
+.carousel-control-next:hover,
+.carousel-control-prev:focus-visible,
+.carousel-control-next:focus-visible {
+    border-color: var(--accent);
     background: var(--control-hover);
     opacity: 1;
+}
+
+.carousel-control-prev:focus-visible,
+.carousel-control-next:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
 }
 
 .carousel-control-prev-icon,
@@ -656,20 +597,40 @@ a.card:hover {
     height: 20px;
 }
 
+.carousel.carousel-shell .carousel-control-prev-icon,
+.carousel.carousel-shell .carousel-control-next-icon {
+    filter: none;
+}
+
 .carousel-indicators {
     justify-content: flex-start;
     gap: 4px;
     margin: 0 24px 14px;
 }
 
-.carousel-indicators [data-bs-target] {
+.carousel.carousel-shell .carousel-indicators [data-bs-target] {
     width: 20px;
     height: 4px;
     background-color: var(--muted);
+    opacity: 0.55;
+    transition:
+        width 200ms ease,
+        opacity 200ms ease;
 }
 
-.carousel-indicators .active {
+.carousel.carousel-shell .carousel-indicators [data-bs-target]:hover {
+    opacity: 0.9;
+}
+
+.carousel.carousel-shell .carousel-indicators .active {
+    width: 36px;
     background-color: var(--accent);
+    opacity: 1;
+}
+
+.carousel.carousel-shell .carousel-indicators [data-bs-target]:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
 }
 
 .motivation .container {
@@ -878,7 +839,6 @@ a.card:hover {
 }
 
 #main-footer {
-    grid-area: footer;
     border-top: 1px solid var(--line);
     background: var(--paper);
 }
@@ -1041,43 +1001,6 @@ a.card:hover {
 }
 
 @media (max-width: 800px) {
-    .page-layout {
-        grid-template-columns: minmax(0, 1fr);
-        grid-template-rows: auto auto 1fr auto;
-        grid-template-areas:
-            "header"
-            "sidebar"
-            "main"
-            "footer";
-    }
-
-    .sidebar {
-        padding: 20px 5%;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-    }
-
-    .sidebar h2,
-    .sidebar > p:not(.sidebar-label) {
-        display: none;
-    }
-
-    .sidebar-label {
-        margin-bottom: 8px;
-    }
-
-    .sidebar-nav {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 8px 24px;
-        margin-top: 0;
-    }
-
-    .sidebar-nav a {
-        gap: 12px;
-        border-bottom: 0;
-    }
-
     .hero {
         min-height: auto;
         padding-block: 40px;

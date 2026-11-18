@@ -74,7 +74,16 @@ const KNOWN_EMAIL_DOMAINS = [
     "astanait.edu.kz",
 ];
 // Real services that look like typos of the ones above, so they are never "corrected".
-const OTHER_REAL_DOMAINS = ["mail.com", "email.com", "ymail.com", "gmx.com", "live.com", "me.com"];
+const OTHER_REAL_DOMAINS = [
+    "mail.com",
+    "email.com",
+    "ymail.com",
+    "gmx.com",
+    "live.com",
+    "me.com",
+    "mail.kz",
+    "inbox.kz",
+];
 const PHONE_PATTERN = /^\+?\d{10,15}$/;
 
 // Each password check has a key (used by the checklist on the sign-up page) and its message.
@@ -122,18 +131,56 @@ function getEmailError(value) {
     if (!domain.includes("."))
         return `Add the ending of the address, for example ${local}@${domain}.com.`;
     if (!EMAIL_DOMAIN_PATTERN.test(domain)) return example;
+    return "";
+}
 
+// A correct address whose domain is one or two letters away from a popular service may be a
+// typo (gmial.com, gmail.con). This only returns a suggestion and never blocks the form,
+// because real domains such as mail.kz look similar to mail.ru.
+function getEmailSuggestion(value) {
+    if (getEmailError(value)) return "";
+    const [local, domain] = value.split("@");
     const lowerDomain = domain.toLowerCase();
     if (KNOWN_EMAIL_DOMAINS.includes(lowerDomain) || OTHER_REAL_DOMAINS.includes(lowerDomain)) {
         return "";
     }
-    const suggestion = KNOWN_EMAIL_DOMAINS.find((known) => editDistance(lowerDomain, known) <= 2);
-    return suggestion ? `Check the address. Did you mean ${local}@${suggestion}?` : "";
+    const match = KNOWN_EMAIL_DOMAINS.find((known) => editDistance(lowerDomain, known) <= 2);
+    return match ? `${local}@${match}` : "";
+}
+
+// Shows "Did you mean ...?" under an email field, with a button that applies the suggestion.
+function showEmailHint(field) {
+    let hint = document.getElementById(`${field.id}-hint`);
+    if (!hint) {
+        hint = document.createElement("p");
+        hint.id = `${field.id}-hint`;
+        hint.className = "field-hint";
+        hint.setAttribute("aria-live", "polite");
+        document.getElementById(`${field.id}-error`)?.after(hint);
+    }
+    const suggestion = getEmailSuggestion(field.value.trim());
+    hint.replaceChildren();
+    if (!suggestion) return;
+    const apply = document.createElement("button");
+    apply.type = "button";
+    apply.className = "hint-button";
+    apply.textContent = "Use it";
+    apply.addEventListener("click", () => {
+        field.value = suggestion;
+        hint.replaceChildren();
+        field.focus();
+    });
+    hint.append(`Did you mean ${suggestion}? `, apply);
 }
 
 // Joins ["a", "b", "c"] into "a, b and c" for readable messages.
 function joinWords(words) {
     return words.length > 1 ? `${words.slice(0, -1).join(", ")} and ${words.at(-1)}` : words[0];
+}
+
+// A new password or its confirmation. Both keep their exact value, spaces included.
+function isPasswordField(field) {
+    return field.dataset.rule === "password" || "match" in field.dataset;
 }
 
 // Returns the error message for a field, or an empty string when it is valid.
@@ -150,8 +197,10 @@ function getFieldError(field, form) {
         return isRequired && !field.checked ? data.message || `${label} must be checked.` : "";
     }
 
-    // Passwords are compared exactly. Other text ignores spaces at the ends.
-    const value = field.type === "password" ? field.value : field.value.trim();
+    // Password fields are recognised by their rule, not by input.type, because the Show
+    // button turns them into type="text". Their value is checked exactly as it will be
+    // saved and hashed; other text ignores spaces at the ends.
+    const value = isPasswordField(field) ? field.value : field.value.trim();
     if (!value) {
         if (!isRequired) return "";
         return field.tagName === "SELECT" ? `Please choose ${label}.` : `${label} is required.`;
@@ -251,9 +300,19 @@ function validateForm(form) {
     return !firstInvalid;
 }
 
+// Submit buttons are disabled in the HTML (data-requires-js), so a form can never be sent to
+// the server while JavaScript is off or a script failed. The script that keeps the data in the
+// browser calls this after it has added its submit handler.
+function enableSubmit(form) {
+    form.querySelectorAll("[data-requires-js]").forEach((button) => {
+        button.disabled = false;
+    });
+}
+
 // Validates every form with data-validate when it is submitted. A field is checked again when
 // the user leaves it, and while typing once it already shows an error.
-// Later submit handlers (spinner in script.js, auth.js) skip the event if it was cancelled here.
+// An invalid form stops the event here, so later handlers (auth.js, the spinner in script.js)
+// only run for valid data.
 function initializeValidation() {
     document.querySelectorAll("form[data-validate]").forEach((form) => {
         const fields = getValidatedFields(form);
@@ -274,13 +333,16 @@ function initializeValidation() {
         }
 
         form.addEventListener("submit", (event) => {
-            if (!validateForm(form)) event.preventDefault();
+            if (validateForm(form)) return;
+            event.preventDefault();
+            event.stopImmediatePropagation();
         });
 
         form.addEventListener("focusout", (event) => {
             const field = event.target;
             if (fields.includes(field) && field.value.trim() && field.type !== "radio")
                 checkField(field);
+            if (field.dataset?.rule === "email") showEmailHint(field);
         });
 
         form.addEventListener("input", (event) => {
@@ -303,6 +365,7 @@ function initializeValidation() {
 
         form.addEventListener("reset", () => {
             fields.forEach((field) => showFieldError(field, ""));
+            form.querySelectorAll(".field-hint").forEach((hint) => hint.replaceChildren());
             if (status) status.textContent = "";
         });
     });

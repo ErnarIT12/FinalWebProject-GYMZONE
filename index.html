@@ -10,6 +10,7 @@
         <meta name="theme-color" content="#111715" />
         <title>GYMZONE - Home</title>
         <script src="js/theme.js"></script>
+        <script src="js/storage.js"></script>
         <link rel="icon" type="image/png" href="images/gymzone-logo.png" />
         <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/style.css" />
@@ -23,870 +24,728 @@
     </head>
     <body>
         <a class="skip-link" href="#main-content">Skip to main content</a>
-        <div class="page-layout">
-            <header id="main-header" class="site-header">
-                <nav
-                    class="navbar navbar-expand-xl navbar-dark bg-dark"
-                    aria-label="Main navigation"
-                >
-                    <div class="container">
-                        <a class="navbar-brand" href="index.html"
-                            ><img
+        <header id="main-header" class="site-header">
+            <nav class="navbar navbar-expand-xl navbar-dark bg-dark" aria-label="Main navigation">
+                <div class="container">
+                    <a class="navbar-brand" href="index.html"
+                        ><img
+                            class="logo-on-dark"
+                            src="images/gymzone-logo-dark.png"
+                            alt="GYMZONE home"
+                            width="914"
+                            height="202" /><img
+                            class="logo-on-light"
+                            src="images/gymzone-logo-light.png"
+                            alt=""
+                            width="914"
+                            height="202"
+                    /></a>
+                    <div class="nav-actions">
+                        <button
+                            type="button"
+                            class="theme-toggle"
+                            data-theme-toggle
+                            aria-pressed="false"
+                            aria-label="Switch color theme"
+                        >
+                            <svg
+                                class="theme-icon theme-icon-sun"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <path
+                                    d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"
+                                ></path>
+                            </svg>
+                            <svg
+                                class="theme-icon theme-icon-moon"
+                                viewBox="0 0 24 24"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"
+                                ></path>
+                            </svg>
+                        </button>
+                        <button
+                            class="navbar-toggler"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#mainNavbar"
+                            aria-controls="mainNavbar"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                        >
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="mainNavbar">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="index.html"
+                                    >Home</a
+                                >
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="upper.html">Upper Body</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="lower.html">Lower Body</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="crossfit.html">CrossFit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="library.html">Library</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="about.html">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contact.html">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-account" href="login.html" data-account-link
+                                    >Log in</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main-content">
+            <section class="hero">
+                <div class="container hero-content">
+                    <div>
+                        <h1>BUILD YOUR <span>BODY</span></h1>
+                        <p>
+                            GYMZONE helps beginners and returning lifters learn exercises with clear
+                            technique guides, a live exercise library and a personal profile.
+                        </p>
+                        <div class="hero-actions">
+                            <a href="#exercise-explorer" class="btn btn-primary btn-lg"
+                                >Find an exercise</a
+                            >
+                            <a href="library.html" class="btn btn-outline-primary btn-lg"
+                                >Open the Library</a
+                            >
+                        </div>
+                    </div>
+                    <img
+                        src="images/Dlaid.jpg"
+                        alt="Athlete training in the gym"
+                        width="1280"
+                        height="720"
+                        fetchpriority="high"
+                    />
+                </div>
+            </section>
+            <section class="section py-5" id="site-stats" aria-labelledby="stats-title">
+                <div class="container">
+                    <h2 class="section-title" id="stats-title">GYMZONE IN NUMBERS</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <span class="stat-number" data-count-target="21">21</span>
+                            <span class="stat-label">Exercise guides</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" data-count-target="63">63</span>
+                            <span class="stat-label">Technique steps</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" data-count-target="6">6</span>
+                            <span class="stat-label">Muscle groups</span>
+                        </div>
+                        <div class="stat-card">
+                            <span class="stat-number" data-count-target="3">3</span>
+                            <span class="stat-label">Training categories</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section
+                class="section gallery-section py-5"
+                id="exercise-explorer"
+                aria-labelledby="explorer-title"
+            >
+                <div class="container">
+                    <h2 class="section-title mb-4" id="explorer-title">EXERCISE EXPLORER</h2>
+                    <p class="interactive-muted mb-4">
+                        Search all 21 exercises by name, filter by training focus, then open the
+                        technique guide.
+                    </p>
+                    <div class="jquery-search mb-3" role="search">
+                        <label class="form-label" for="exercise-search">Search exercises</label>
+                        <input
+                            class="form-control"
+                            id="exercise-search"
+                            type="text"
+                            enterkeyhint="search"
+                            placeholder="Try press, squat or back"
+                            autocomplete="off"
+                            role="combobox"
+                            aria-autocomplete="list"
+                            aria-expanded="false"
+                            aria-controls="exercise-suggestions"
+                        />
+                        <ul
+                            class="search-suggestions"
+                            id="exercise-suggestions"
+                            role="listbox"
+                            aria-label="Exercise suggestions"
+                            hidden
+                        ></ul>
+                    </div>
+                    <div
+                        class="exercise-filters mb-3"
+                        role="group"
+                        aria-label="Exercise categories"
+                    >
+                        <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            data-exercise-filter="all"
+                            aria-pressed="true"
+                            disabled
+                        >
+                            All
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            data-exercise-filter="upper"
+                            aria-pressed="false"
+                            disabled
+                        >
+                            Upper Body
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            data-exercise-filter="lower"
+                            aria-pressed="false"
+                            disabled
+                        >
+                            Lower Body
+                        </button>
+                        <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            data-exercise-filter="conditioning"
+                            aria-pressed="false"
+                            disabled
+                        >
+                            CrossFit
+                        </button>
+                    </div>
+                    <p id="exercise-count" class="catalog-count mb-4" role="status">
+                        Loading the exercise list...
+                    </p>
+                    <p class="search-empty" id="exercise-empty" hidden>
+                        No exercises match your search in this category.
+                    </p>
+                    <div class="row g-4" id="exercise-results"></div>
+                    <div class="explorer-more">
+                        <button
+                            type="button"
+                            class="btn btn-outline-primary"
+                            id="exercise-show-all"
+                            hidden
+                        >
+                            Show all exercises
+                        </button>
+                    </div>
+                    <noscript
+                        ><p class="interactive-muted">
+                            Turn on JavaScript to search the exercises, or open a category below.
+                        </p></noscript
+                    >
+                </div>
+            </section>
+            <section class="section py-5" id="categories">
+                <div class="container">
+                    <h2 class="section-title">TRAINING CATEGORIES</h2>
+                    <div class="media-card-group">
+                        <a href="upper.html" class="media-card">
+                            <img
+                                class="lazy-image"
+                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                data-src="images/Bench Press.gif"
+                                alt="Upper body training"
+                            />
+                            <div class="media-card-content p-4">
+                                <h3>Upper Body</h3>
+                                <p>Train your chest, back, shoulders and arms.</p>
+                                <span class="card-button btn btn-outline-primary btn-sm"
+                                    >View exercises</span
+                                >
+                            </div>
+                        </a>
+                        <a href="lower.html" class="media-card">
+                            <img
+                                class="lazy-image"
+                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                data-src="images/Leg Press.gif"
+                                alt="Lower body training"
+                            />
+                            <div class="media-card-content p-4">
+                                <h3>Lower Body</h3>
+                                <p>Build strong legs, quadriceps and glutes.</p>
+                                <span class="card-button btn btn-outline-primary btn-sm"
+                                    >View exercises</span
+                                >
+                            </div>
+                        </a>
+                        <a href="crossfit.html" class="media-card">
+                            <img
+                                class="lazy-image"
+                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                data-src="images/Burpees.gif"
+                                alt="CrossFit training"
+                            />
+                            <div class="media-card-content p-4">
+                                <h3>CrossFit</h3>
+                                <p>High intensity exercises for strength and endurance.</p>
+                                <span class="card-button btn btn-outline-primary btn-sm"
+                                    >View exercises</span
+                                >
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+            <section class="section gallery-section py-5" id="workout-carousel">
+                <div class="container">
+                    <div class="row g-4 align-items-start">
+                        <div class="col-12 col-xl-10 mx-auto">
+                            <h2 class="section-title mb-4">MOVEMENT IN MOTION</h2>
+                            <p class="interactive-muted mb-4">
+                                Use the arrows to watch each movement before you open its guide.
+                            </p>
+                            <div
+                                id="gymCarousel"
+                                class="carousel slide carousel-shell"
+                                data-bs-interval="false"
+                                role="region"
+                                aria-roledescription="carousel"
+                                aria-label="Exercise movement carousel"
+                            >
+                                <div class="carousel-indicators">
+                                    <button
+                                        type="button"
+                                        data-bs-target="#gymCarousel"
+                                        data-bs-slide-to="0"
+                                        class="active"
+                                        aria-current="true"
+                                        aria-label="Slide 1"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        data-bs-target="#gymCarousel"
+                                        data-bs-slide-to="1"
+                                        aria-label="Slide 2"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        data-bs-target="#gymCarousel"
+                                        data-bs-slide-to="2"
+                                        aria-label="Slide 3"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        data-bs-target="#gymCarousel"
+                                        data-bs-slide-to="3"
+                                        aria-label="Slide 4"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        data-bs-target="#gymCarousel"
+                                        data-bs-slide-to="4"
+                                        aria-label="Slide 5"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        data-bs-target="#gymCarousel"
+                                        data-bs-slide-to="5"
+                                        aria-label="Slide 6"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        data-bs-target="#gymCarousel"
+                                        data-bs-slide-to="6"
+                                        aria-label="Slide 7"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        data-bs-target="#gymCarousel"
+                                        data-bs-slide-to="7"
+                                        aria-label="Slide 8"
+                                    ></button>
+                                    <button
+                                        type="button"
+                                        data-bs-target="#gymCarousel"
+                                        data-bs-slide-to="8"
+                                        aria-label="Slide 9"
+                                    ></button>
+                                </div>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img
+                                            class="lazy-image"
+                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                            data-src="images/Barbell-Bench-Press.gif"
+                                            alt="Barbell bench press"
+                                        />
+                                        <div class="carousel-caption"><h3>Bench Press</h3></div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img
+                                            class="lazy-image"
+                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                            data-src="images/Pull-up.gif"
+                                            alt="Pull-up exercise"
+                                        />
+                                        <div class="carousel-caption"><h3>Pull-Ups</h3></div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img
+                                            class="lazy-image"
+                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                            data-src="images/Overhead Press.gif"
+                                            alt="Overhead press"
+                                        />
+                                        <div class="carousel-caption">
+                                            <h3>Overhead Press</h3>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img
+                                            class="lazy-image"
+                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                            data-src="images/Barbell Squat.gif"
+                                            alt="Barbell squat"
+                                        />
+                                        <div class="carousel-caption">
+                                            <h3>Barbell Squat</h3>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img
+                                            class="lazy-image"
+                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                            data-src="images/Leg Press.gif"
+                                            alt="Leg press"
+                                        />
+                                        <div class="carousel-caption"><h3>Leg Press</h3></div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img
+                                            class="lazy-image"
+                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                            data-src="images/Romanian Deadlift.gif"
+                                            alt="Romanian deadlift"
+                                        />
+                                        <div class="carousel-caption">
+                                            <h3>Romanian Deadlift</h3>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img
+                                            class="lazy-image"
+                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                            data-src="images/Burpees.gif"
+                                            alt="Burpees"
+                                        />
+                                        <div class="carousel-caption"><h3>Burpees</h3></div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img
+                                            class="lazy-image"
+                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                            data-src="images/Kettlebell Swing.gif"
+                                            alt="Kettlebell swing"
+                                        />
+                                        <div class="carousel-caption">
+                                            <h3>Kettlebell Swing</h3>
+                                        </div>
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img
+                                            class="lazy-image"
+                                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                                            data-src="images/Triceps Pushdown.gif"
+                                            alt="Triceps pushdown"
+                                        />
+                                        <div class="carousel-caption">
+                                            <h3>Triceps Pushdown</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button
+                                    class="carousel-control-prev"
+                                    type="button"
+                                    data-bs-target="#gymCarousel"
+                                    data-bs-slide="prev"
+                                >
+                                    <span
+                                        class="carousel-control-prev-icon"
+                                        aria-hidden="true"
+                                    ></span
+                                    ><span class="visually-hidden">Previous</span>
+                                </button>
+                                <button
+                                    class="carousel-control-next"
+                                    type="button"
+                                    data-bs-target="#gymCarousel"
+                                    data-bs-slide="next"
+                                >
+                                    <span
+                                        class="carousel-control-next-icon"
+                                        aria-hidden="true"
+                                    ></span
+                                    ><span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="section faq-section py-5" id="training-faq" aria-labelledby="faq-title">
+                <div class="container">
+                    <h2 class="section-title" id="faq-title">TRAINING QUESTIONS</h2>
+                    <div class="jquery-search faq-search" role="search">
+                        <label class="form-label" for="faq-search">Search the answers</label>
+                        <input
+                            class="form-control"
+                            id="faq-search"
+                            type="search"
+                            placeholder="Try exercise, form or equipment"
+                            autocomplete="off"
+                        />
+                        <p class="faq-search-status" id="faq-search-status" role="status"></p>
+                    </div>
+                    <div class="faq-list">
+                        <article class="faq-item">
+                            <h3 class="m-0">
+                                <button
+                                    type="button"
+                                    class="faq-question"
+                                    id="faq-question-1"
+                                    aria-expanded="false"
+                                    aria-controls="faq-answer-1"
+                                >
+                                    <span class="faq-question-text">Where should I start?</span
+                                    ><span aria-hidden="true">+</span>
+                                </button>
+                            </h3>
+                            <div
+                                class="faq-panel"
+                                id="faq-answer-1"
+                                role="region"
+                                aria-labelledby="faq-question-1"
+                                aria-hidden="true"
+                                inert
+                            >
+                                <div class="faq-answer">
+                                    <p>
+                                        Choose Upper Body, Lower Body or CrossFit. Open an exercise
+                                        page and read its technique steps before trying the
+                                        movement.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="faq-item">
+                            <h3 class="m-0">
+                                <button
+                                    type="button"
+                                    class="faq-question"
+                                    id="faq-question-2"
+                                    aria-expanded="false"
+                                    aria-controls="faq-answer-2"
+                                >
+                                    <span class="faq-question-text">Do I need gym equipment?</span
+                                    ><span aria-hidden="true">+</span>
+                                </button>
+                            </h3>
+                            <div
+                                class="faq-panel"
+                                id="faq-answer-2"
+                                role="region"
+                                aria-labelledby="faq-question-2"
+                                aria-hidden="true"
+                                inert
+                            >
+                                <div class="faq-answer">
+                                    <p>
+                                        Equipment depends on the exercise. Push-ups and burpees use
+                                        your body weight; other guides show machines, barbells or
+                                        dumbbells.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="faq-item">
+                            <h3 class="m-0">
+                                <button
+                                    type="button"
+                                    class="faq-question"
+                                    id="faq-question-3"
+                                    aria-expanded="false"
+                                    aria-controls="faq-answer-3"
+                                >
+                                    <span class="faq-question-text"
+                                        >How do I use the movement carousel?</span
+                                    ><span aria-hidden="true">+</span>
+                                </button>
+                            </h3>
+                            <div
+                                class="faq-panel"
+                                id="faq-answer-3"
+                                role="region"
+                                aria-labelledby="faq-question-3"
+                                aria-hidden="true"
+                                inert
+                            >
+                                <div class="faq-answer">
+                                    <p>
+                                        Use the arrow buttons to move between exercises, or select
+                                        an indicator to jump to a slide. Slides wait for your input.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="faq-item">
+                            <h3 class="m-0">
+                                <button
+                                    type="button"
+                                    class="faq-question"
+                                    id="faq-question-4"
+                                    aria-expanded="false"
+                                    aria-controls="faq-answer-4"
+                                >
+                                    <span class="faq-question-text"
+                                        >Where are my profile details stored?</span
+                                    ><span aria-hidden="true">+</span>
+                                </button>
+                            </h3>
+                            <div
+                                class="faq-panel"
+                                id="faq-answer-4"
+                                role="region"
+                                aria-labelledby="faq-question-4"
+                                aria-hidden="true"
+                                inert
+                            >
+                                <div class="faq-answer">
+                                    <p>
+                                        Only in this browser. Sign Up saves your name, email, phone
+                                        and goal in localStorage, and the password is stored as a
+                                        SHA-256 hash, never as plain text. Nothing is sent to a
+                                        server.
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="section motivation py-5" aria-labelledby="motivation-title">
+                <div class="container">
+                    <h2 class="visually-hidden" id="motivation-title">Motivation</h2>
+                    <img
+                        class="lazy-image"
+                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                        data-src="images/arnold1.jpg"
+                        alt="Motivational gym image"
+                    />
+                    <blockquote>
+                        “The resistance that you fight physically in the gym and the resistance that
+                        you fight in life can only build a strong character.”
+                    </blockquote>
+                    <cite> Arnold Schwarzenegger </cite>
+                </div>
+            </section>
+        </main>
+        <footer id="main-footer" class="site-footer pt-5 pb-4">
+            <div class="container">
+                <div class="footer-content pb-4 pb-lg-5">
+                    <div class="footer-brand">
+                        <a href="index.html" class="logo" aria-label="GYMZONE home">
+                            <img
                                 class="logo-on-dark"
                                 src="images/gymzone-logo-dark.png"
-                                alt="GYMZONE home"
+                                alt="GYMZONE"
                                 width="914"
-                                height="202" /><img
+                                height="202"
+                            /><img
                                 class="logo-on-light"
                                 src="images/gymzone-logo-light.png"
                                 alt=""
                                 width="914"
                                 height="202"
-                        /></a>
-                        <div class="nav-actions">
-                            <button
-                                type="button"
-                                class="theme-toggle"
-                                data-theme-toggle
-                                aria-pressed="false"
-                                aria-label="Switch color theme"
-                            >
-                                <svg
-                                    class="theme-icon theme-icon-sun"
-                                    viewBox="0 0 24 24"
-                                    aria-hidden="true"
-                                >
-                                    <circle cx="12" cy="12" r="4.5"></circle>
-                                    <path
-                                        d="M12 2v2.5M12 19.5V22M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2 12h2.5M19.5 12H22M4.2 19.8 6 18M18 6l1.8-1.8"
-                                    ></path>
-                                </svg>
-                                <svg
-                                    class="theme-icon theme-icon-moon"
-                                    viewBox="0 0 24 24"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z"
-                                    ></path>
-                                </svg>
-                            </button>
-                            <button
-                                class="navbar-toggler"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target="#mainNavbar"
-                                aria-controls="mainNavbar"
-                                aria-expanded="false"
-                                aria-label="Toggle navigation"
-                            >
-                                <span class="navbar-toggler-icon"></span>
-                            </button>
-                        </div>
-                        <div class="collapse navbar-collapse" id="mainNavbar">
-                            <ul class="navbar-nav ms-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="index.html"
-                                        >Home</a
-                                    >
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="upper.html">Upper Body</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="lower.html">Lower Body</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="crossfit.html">CrossFit</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="library.html">Library</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="about.html">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">Contact</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a
-                                        class="nav-link nav-account"
-                                        href="login.html"
-                                        data-account-link
-                                        >Log in</a
-                                    >
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-            </header>
-            <aside class="sidebar">
-                <p class="sidebar-label">TRAINING FOCUS</p>
-                <h2>Build a balanced routine.</h2>
-                <p>Use the exercise pages to combine strength, technique and conditioning.</p>
-                <nav class="sidebar-nav" aria-label="Training focus">
-                    <a href="upper.html">Upper body</a>
-                    <a href="lower.html">Lower body</a>
-                    <a href="crossfit.html">Conditioning</a>
-                </nav>
-            </aside>
-            <main class="site-main" id="main-content">
-                <section class="hero">
-                    <div class="container hero-content">
-                        <div>
-                            <h1>BUILD YOUR <span>BODY</span></h1>
-                            <p>
-                                GYMZONE helps beginners and returning lifters learn exercises with
-                                clear technique guides, a live exercise library and a personal
-                                profile.
-                            </p>
-                            <div class="hero-actions">
-                                <a href="#categories" class="btn btn-primary btn-lg"
-                                    >Explore Exercises</a
-                                >
-                                <a href="library.html" class="btn btn-outline-primary btn-lg"
-                                    >Open the Library</a
-                                >
-                            </div>
-                        </div>
-                        <img
-                            src="images/Dlaid.jpg"
-                            alt="Athlete training in the gym"
-                            width="1280"
-                            height="720"
-                            fetchpriority="high"
-                        />
-                    </div>
-                </section>
-                <section class="section py-5" id="site-stats" aria-labelledby="stats-title">
-                    <div class="container">
-                        <h2 class="section-title" id="stats-title">GYMZONE IN NUMBERS</h2>
-                        <div class="stats-grid">
-                            <div class="stat-card">
-                                <span class="stat-number" data-count-target="21">21</span>
-                                <span class="stat-label">Exercise guides</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number" data-count-target="63">63</span>
-                                <span class="stat-label">Technique steps</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number" data-count-target="6">6</span>
-                                <span class="stat-label">Muscle groups</span>
-                            </div>
-                            <div class="stat-card">
-                                <span class="stat-number" data-count-target="3">3</span>
-                                <span class="stat-label">Training categories</span>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="section py-5" id="categories">
-                    <div class="container">
-                        <h2 class="section-title">TRAINING CATEGORIES</h2>
-                        <div class="media-card-group">
-                            <a href="upper.html" class="media-card">
-                                <img
-                                    class="lazy-image"
-                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                    data-src="images/Bench Press.gif"
-                                    alt="Upper body training"
-                                />
-                                <div class="media-card-content p-4">
-                                    <h3>Upper Body</h3>
-                                    <p>Train your chest, back, shoulders and arms.</p>
-                                    <span class="card-button btn btn-outline-primary btn-sm"
-                                        >View exercises</span
-                                    >
-                                </div>
-                            </a>
-                            <a href="lower.html" class="media-card">
-                                <img
-                                    class="lazy-image"
-                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                    data-src="images/Leg Press.gif"
-                                    alt="Lower body training"
-                                />
-                                <div class="media-card-content p-4">
-                                    <h3>Lower Body</h3>
-                                    <p>Build strong legs, quadriceps and glutes.</p>
-                                    <span class="card-button btn btn-outline-primary btn-sm"
-                                        >View exercises</span
-                                    >
-                                </div>
-                            </a>
-                            <a href="crossfit.html" class="media-card">
-                                <img
-                                    class="lazy-image"
-                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                    data-src="images/Burpees.gif"
-                                    alt="CrossFit training"
-                                />
-                                <div class="media-card-content p-4">
-                                    <h3>CrossFit</h3>
-                                    <p>High intensity exercises for strength and endurance.</p>
-                                    <span class="card-button btn btn-outline-primary btn-sm"
-                                        >View exercises</span
-                                    >
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </section>
-                <section class="section gallery-section py-5" id="workout-carousel">
-                    <div class="container">
-                        <div class="row g-4 align-items-start">
-                            <div class="col-12 col-lg-8">
-                                <h2 class="section-title mb-4">MOVEMENT IN MOTION</h2>
-                                <div
-                                    id="gymCarousel"
-                                    class="carousel slide carousel-shell"
-                                    data-bs-interval="false"
-                                    role="region"
-                                    aria-roledescription="carousel"
-                                    aria-label="Exercise movement carousel"
-                                >
-                                    <div class="carousel-indicators">
-                                        <button
-                                            type="button"
-                                            data-bs-target="#gymCarousel"
-                                            data-bs-slide-to="0"
-                                            class="active"
-                                            aria-current="true"
-                                            aria-label="Slide 1"
-                                        ></button>
-                                        <button
-                                            type="button"
-                                            data-bs-target="#gymCarousel"
-                                            data-bs-slide-to="1"
-                                            aria-label="Slide 2"
-                                        ></button>
-                                        <button
-                                            type="button"
-                                            data-bs-target="#gymCarousel"
-                                            data-bs-slide-to="2"
-                                            aria-label="Slide 3"
-                                        ></button>
-                                        <button
-                                            type="button"
-                                            data-bs-target="#gymCarousel"
-                                            data-bs-slide-to="3"
-                                            aria-label="Slide 4"
-                                        ></button>
-                                        <button
-                                            type="button"
-                                            data-bs-target="#gymCarousel"
-                                            data-bs-slide-to="4"
-                                            aria-label="Slide 5"
-                                        ></button>
-                                        <button
-                                            type="button"
-                                            data-bs-target="#gymCarousel"
-                                            data-bs-slide-to="5"
-                                            aria-label="Slide 6"
-                                        ></button>
-                                        <button
-                                            type="button"
-                                            data-bs-target="#gymCarousel"
-                                            data-bs-slide-to="6"
-                                            aria-label="Slide 7"
-                                        ></button>
-                                        <button
-                                            type="button"
-                                            data-bs-target="#gymCarousel"
-                                            data-bs-slide-to="7"
-                                            aria-label="Slide 8"
-                                        ></button>
-                                        <button
-                                            type="button"
-                                            data-bs-target="#gymCarousel"
-                                            data-bs-slide-to="8"
-                                            aria-label="Slide 9"
-                                        ></button>
-                                    </div>
-                                    <div class="carousel-inner">
-                                        <div class="carousel-item active">
-                                            <img
-                                                class="lazy-image"
-                                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                                data-src="images/Barbell-Bench-Press.gif"
-                                                alt="Barbell bench press"
-                                            />
-                                            <div class="carousel-caption"><h3>Bench Press</h3></div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img
-                                                class="lazy-image"
-                                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                                data-src="images/Pull-up.gif"
-                                                alt="Pull-up exercise"
-                                            />
-                                            <div class="carousel-caption"><h3>Pull-Ups</h3></div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img
-                                                class="lazy-image"
-                                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                                data-src="images/Overhead Press.gif"
-                                                alt="Overhead press"
-                                            />
-                                            <div class="carousel-caption">
-                                                <h3>Overhead Press</h3>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img
-                                                class="lazy-image"
-                                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                                data-src="images/Barbell Squat.gif"
-                                                alt="Barbell squat"
-                                            />
-                                            <div class="carousel-caption">
-                                                <h3>Barbell Squat</h3>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img
-                                                class="lazy-image"
-                                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                                data-src="images/Leg Press.gif"
-                                                alt="Leg press"
-                                            />
-                                            <div class="carousel-caption"><h3>Leg Press</h3></div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img
-                                                class="lazy-image"
-                                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                                data-src="images/Romanian Deadlift.gif"
-                                                alt="Romanian deadlift"
-                                            />
-                                            <div class="carousel-caption">
-                                                <h3>Romanian Deadlift</h3>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img
-                                                class="lazy-image"
-                                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                                data-src="images/Burpees.gif"
-                                                alt="Burpees"
-                                            />
-                                            <div class="carousel-caption"><h3>Burpees</h3></div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img
-                                                class="lazy-image"
-                                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                                data-src="images/Kettlebell Swing.gif"
-                                                alt="Kettlebell swing"
-                                            />
-                                            <div class="carousel-caption">
-                                                <h3>Kettlebell Swing</h3>
-                                            </div>
-                                        </div>
-                                        <div class="carousel-item">
-                                            <img
-                                                class="lazy-image"
-                                                src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                                data-src="images/Triceps Pushdown.gif"
-                                                alt="Triceps pushdown"
-                                            />
-                                            <div class="carousel-caption">
-                                                <h3>Triceps Pushdown</h3>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <button
-                                        class="carousel-control-prev"
-                                        type="button"
-                                        data-bs-target="#gymCarousel"
-                                        data-bs-slide="prev"
-                                    >
-                                        <span
-                                            class="carousel-control-prev-icon"
-                                            aria-hidden="true"
-                                        ></span
-                                        ><span class="visually-hidden">Previous</span>
-                                    </button>
-                                    <button
-                                        class="carousel-control-next"
-                                        type="button"
-                                        data-bs-target="#gymCarousel"
-                                        data-bs-slide="next"
-                                    >
-                                        <span
-                                            class="carousel-control-next-icon"
-                                            aria-hidden="true"
-                                        ></span
-                                        ><span class="visually-hidden">Next</span>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-4 mt-lg-5 px-sm-2">
-                                <div class="card bootstrap-card h-100">
-                                    <div class="card-body p-4">
-                                        <h2 class="card-title h3">TRAIN WITH PURPOSE</h2>
-                                        <p class="card-text">
-                                            Use clear technique guides to build a routine that fits
-                                            your goals.
-                                        </p>
-                                        <div
-                                            class="btn-group mt-3"
-                                            role="group"
-                                            aria-label="Workout categories"
-                                        >
-                                            <a href="upper.html" class="btn btn-primary btn-sm"
-                                                >Upper</a
-                                            >
-                                            <a href="lower.html" class="btn btn-secondary btn-sm"
-                                                >Lower</a
-                                            >
-                                            <a
-                                                href="crossfit.html"
-                                                class="btn btn-outline-primary btn-sm"
-                                                >WOD</a
-                                            >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section class="section gallery-section py-5" id="bootstrap-cards">
-                    <div class="container">
-                        <h2 class="section-title mb-4">EXERCISE EXPLORER</h2>
-                        <p class="interactive-muted mb-4">
-                            Search or filter movements by training focus, then open a technique
-                            guide.
-                        </p>
-                        <div class="jquery-search mb-3" role="search">
-                            <label class="form-label" for="exercise-search">Search exercises</label>
-                            <input
-                                class="form-control"
-                                id="exercise-search"
-                                type="text"
-                                enterkeyhint="search"
-                                placeholder="Try press, squat or back"
-                                autocomplete="off"
-                                role="combobox"
-                                aria-autocomplete="list"
-                                aria-expanded="false"
-                                aria-controls="exercise-suggestions"
                             />
-                            <ul
-                                class="search-suggestions"
-                                id="exercise-suggestions"
-                                role="listbox"
-                                aria-label="Exercise suggestions"
-                                hidden
-                            ></ul>
-                        </div>
-                        <div
-                            class="exercise-filters mb-3"
-                            role="group"
-                            aria-label="Exercise categories"
-                        >
-                            <button
-                                type="button"
-                                class="btn btn-secondary btn-sm"
-                                data-exercise-filter="all"
-                                aria-pressed="true"
-                                disabled
-                            >
-                                All
-                            </button>
-                            <button
-                                type="button"
-                                class="btn btn-secondary btn-sm"
-                                data-exercise-filter="upper"
-                                aria-pressed="false"
-                                disabled
-                            >
-                                Upper Body
-                            </button>
-                            <button
-                                type="button"
-                                class="btn btn-secondary btn-sm"
-                                data-exercise-filter="lower"
-                                aria-pressed="false"
-                                disabled
-                            >
-                                Lower Body
-                            </button>
-                            <button
-                                type="button"
-                                class="btn btn-secondary btn-sm"
-                                data-exercise-filter="conditioning"
-                                aria-pressed="false"
-                                disabled
-                            >
-                                CrossFit
-                            </button>
-                        </div>
-                        <p id="exercise-count" class="catalog-count mb-4" role="status">
-                            Choose a training category below.
+                        </a>
+                        <p class="mt-3 mb-0">
+                            Your guide to strength, technique and a balanced training routine.
                         </p>
-                        <p class="search-empty" id="exercise-empty" hidden>
-                            No exercises match your search in this category.
+                    </div>
+                    <nav class="footer-links" aria-label="Footer training navigation">
+                        <h2 class="footer-heading mb-2">Explore training</h2>
+                        <a href="upper.html">Upper Body</a>
+                        <a href="lower.html">Lower Body</a>
+                        <a href="crossfit.html">CrossFit</a>
+                        <a href="library.html">Exercise Library</a>
+                        <a href="about.html">About GYMZONE</a>
+                    </nav>
+                    <div class="footer-connect">
+                        <h2 class="footer-heading mb-3">Let's talk training</h2>
+                        <p class="mb-3">
+                            Have a question about the exercises or your next workout?
                         </p>
-                        <div class="row g-4" id="exercise-results">
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="card bootstrap-card h-100">
-                                    <img
-                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                        data-src="images/Bench Press.gif"
-                                        class="card-img-top lazy-image"
-                                        alt="Upper body training"
-                                    />
-                                    <div class="card-body">
-                                        <h3 class="card-title h4">Upper Body</h3>
-                                        <p class="card-text">
-                                            Build strength through your chest, back, shoulders and
-                                            arms.
-                                        </p>
-                                        <a href="upper.html" class="btn btn-outline-primary btn-sm"
-                                            >Learn more</a
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="card bootstrap-card h-100">
-                                    <img
-                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                        data-src="images/Leg Press.gif"
-                                        class="card-img-top lazy-image"
-                                        alt="Lower body training"
-                                    />
-                                    <div class="card-body">
-                                        <h3 class="card-title h4">Lower Body</h3>
-                                        <p class="card-text">
-                                            Train powerful legs with focused technique and
-                                            consistency.
-                                        </p>
-                                        <a href="lower.html" class="btn btn-outline-primary btn-sm"
-                                            >Learn more</a
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-sm-6 col-lg-4">
-                                <div class="card bootstrap-card h-100">
-                                    <img
-                                        src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                        data-src="images/Burpees.gif"
-                                        class="card-img-top lazy-image"
-                                        alt="CrossFit training"
-                                    />
-                                    <div class="card-body">
-                                        <h3 class="card-title h4">CrossFit</h3>
-                                        <p class="card-text">
-                                            Combine conditioning, strength and movement in one
-                                            session.
-                                        </p>
-                                        <a
-                                            href="crossfit.html"
-                                            class="btn btn-outline-primary btn-sm"
-                                            >Learn more</a
-                                        >
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <section
-                    class="section faq-section py-5"
-                    id="training-faq"
-                    aria-labelledby="faq-title"
-                >
-                    <div class="container">
-                        <h2 class="section-title" id="faq-title">TRAINING QUESTIONS</h2>
-                        <div class="jquery-search faq-search" role="search">
-                            <label class="form-label" for="faq-search">Search the answers</label>
-                            <input
-                                class="form-control"
-                                id="faq-search"
-                                type="search"
-                                placeholder="Try exercise, form or equipment"
-                                autocomplete="off"
-                            />
-                            <p class="faq-search-status" id="faq-search-status" role="status"></p>
-                        </div>
-                        <div class="faq-list">
-                            <article class="faq-item">
-                                <h3 class="m-0">
-                                    <button
-                                        type="button"
-                                        class="faq-question"
-                                        id="faq-question-1"
-                                        aria-expanded="false"
-                                        aria-controls="faq-answer-1"
-                                    >
-                                        <span class="faq-question-text">Where should I start?</span
-                                        ><span aria-hidden="true">+</span>
-                                    </button>
-                                </h3>
-                                <div
-                                    class="faq-panel"
-                                    id="faq-answer-1"
-                                    role="region"
-                                    aria-labelledby="faq-question-1"
-                                    aria-hidden="true"
-                                    inert
-                                >
-                                    <div class="faq-answer">
-                                        <p>
-                                            Choose Upper Body, Lower Body or CrossFit. Open an
-                                            exercise page and read its technique steps before trying
-                                            the movement.
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="faq-item">
-                                <h3 class="m-0">
-                                    <button
-                                        type="button"
-                                        class="faq-question"
-                                        id="faq-question-2"
-                                        aria-expanded="false"
-                                        aria-controls="faq-answer-2"
-                                    >
-                                        <span class="faq-question-text"
-                                            >Do I need gym equipment?</span
-                                        ><span aria-hidden="true">+</span>
-                                    </button>
-                                </h3>
-                                <div
-                                    class="faq-panel"
-                                    id="faq-answer-2"
-                                    role="region"
-                                    aria-labelledby="faq-question-2"
-                                    aria-hidden="true"
-                                    inert
-                                >
-                                    <div class="faq-answer">
-                                        <p>
-                                            Equipment depends on the exercise. Push-ups and burpees
-                                            use your body weight; other guides show machines,
-                                            barbells or dumbbells.
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="faq-item">
-                                <h3 class="m-0">
-                                    <button
-                                        type="button"
-                                        class="faq-question"
-                                        id="faq-question-3"
-                                        aria-expanded="false"
-                                        aria-controls="faq-answer-3"
-                                    >
-                                        <span class="faq-question-text"
-                                            >How do I use the movement carousel?</span
-                                        ><span aria-hidden="true">+</span>
-                                    </button>
-                                </h3>
-                                <div
-                                    class="faq-panel"
-                                    id="faq-answer-3"
-                                    role="region"
-                                    aria-labelledby="faq-question-3"
-                                    aria-hidden="true"
-                                    inert
-                                >
-                                    <div class="faq-answer">
-                                        <p>
-                                            Use the arrow buttons to move between exercises, or
-                                            select an indicator to jump to a slide. Slides wait for
-                                            your input.
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                            <article class="faq-item">
-                                <h3 class="m-0">
-                                    <button
-                                        type="button"
-                                        class="faq-question"
-                                        id="faq-question-4"
-                                        aria-expanded="false"
-                                        aria-controls="faq-answer-4"
-                                    >
-                                        <span class="faq-question-text"
-                                            >Where are my profile details stored?</span
-                                        ><span aria-hidden="true">+</span>
-                                    </button>
-                                </h3>
-                                <div
-                                    class="faq-panel"
-                                    id="faq-answer-4"
-                                    role="region"
-                                    aria-labelledby="faq-question-4"
-                                    aria-hidden="true"
-                                    inert
-                                >
-                                    <div class="faq-answer">
-                                        <p>
-                                            Only in this browser. Sign Up saves your name, email,
-                                            phone and goal in localStorage, and the password is
-                                            stored as a SHA-256 hash, never as plain text. Nothing
-                                            is sent to a server.
-                                        </p>
-                                    </div>
-                                </div>
-                            </article>
-                        </div>
-                    </div>
-                </section>
-                <section class="section motivation py-5" aria-labelledby="motivation-title">
-                    <div class="container">
-                        <h2 class="visually-hidden" id="motivation-title">Motivation</h2>
-                        <img
-                            class="lazy-image"
-                            src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                            data-src="images/arnold1.jpg"
-                            alt="Motivational gym image"
-                        />
-                        <blockquote>
-                            “The resistance that you fight physically in the gym and the resistance
-                            that you fight in life can only build a strong character.”
-                        </blockquote>
-                        <cite> Arnold Schwarzenegger </cite>
-                    </div>
-                </section>
-                <section
-                    class="section gallery-section py-5"
-                    id="gallery"
-                    aria-labelledby="movement-gallery-title"
-                >
-                    <div class="container">
-                        <h2 class="section-title" id="movement-gallery-title">MOVEMENT GALLERY</h2>
-                        <p class="interactive-muted mb-4">
-                            Choose a thumbnail to see the movement and open its technique guide.
-                        </p>
-                        <div class="movement-gallery-layout">
-                            <figure class="movement-display">
-                                <img
-                                    class="lazy-image"
-                                    id="gallery-display"
-                                    src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
-                                    data-src="images/Barbell-Bench-Press.gif"
-                                    alt="Barbell bench press movement"
-                                    width="600"
-                                    height="400"
-                                />
-                                <figcaption class="p-4">
-                                    <h3 id="gallery-title">Bench Press</h3>
-                                    <p id="gallery-description">
-                                        A barbell pressing movement for the chest and upper body.
-                                    </p>
-                                    <a
-                                        id="gallery-guide"
-                                        class="btn btn-outline-primary btn-sm"
-                                        href="chest.html"
-                                        >Open technique guide</a
-                                    >
-                                </figcaption>
-                            </figure>
-                            <div
-                                id="gallery-thumbnails"
-                                class="gallery-thumbnails"
-                                role="group"
-                                aria-label="Choose an exercise"
-                            ></div>
-                        </div>
-                        <p id="gallery-status" class="visually-hidden" role="status"></p>
-                        <noscript
-                            ><p class="interactive-muted">
-                                Enable JavaScript to select gallery thumbnails. Exercise guides
-                                remain available through the navigation.
-                            </p></noscript
-                        >
-                    </div>
-                </section>
-            </main>
-            <footer id="main-footer" class="site-footer pt-5 pb-4">
-                <div class="container">
-                    <div class="footer-content pb-4 pb-lg-5">
-                        <div class="footer-brand">
-                            <a href="index.html" class="logo" aria-label="GYMZONE home">
-                                <img
-                                    class="logo-on-dark"
-                                    src="images/gymzone-logo-dark.png"
-                                    alt="GYMZONE"
-                                    width="914"
-                                    height="202"
-                                /><img
-                                    class="logo-on-light"
-                                    src="images/gymzone-logo-light.png"
-                                    alt=""
-                                    width="914"
-                                    height="202"
-                                />
-                            </a>
-                            <p class="mt-3 mb-0">
-                                Your guide to strength, technique and a balanced training routine.
-                            </p>
-                        </div>
-                        <nav class="footer-links" aria-label="Footer training navigation">
-                            <h2 class="footer-heading mb-2">Explore training</h2>
-                            <a href="upper.html">Upper Body</a>
-                            <a href="lower.html">Lower Body</a>
-                            <a href="crossfit.html">CrossFit</a>
-                            <a href="library.html">Exercise Library</a>
-                            <a href="about.html">About GYMZONE</a>
-                        </nav>
-                        <div class="footer-connect">
-                            <h2 class="footer-heading mb-3">Let's talk training</h2>
-                            <p class="mb-3">
-                                Have a question about the exercises or your next workout?
-                            </p>
-                            <a href="contact.html" class="btn btn-outline-primary">Contact us</a>
-                            <a class="footer-email mt-3" href="mailto:ernarface12@gmail.com"
-                                >ernarface12@gmail.com</a
-                            >
-                        </div>
-                    </div>
-                    <div class="footer-tools py-4">
-                        <div class="footer-clock">
-                            <span class="footer-heading">Local date &amp; time</span>
-                            <time id="current-datetime" datetime="2026-11-18" aria-live="off"
-                                >Loading local time...</time
-                            >
-                        </div>
-                        <div class="footer-tool-buttons">
-                            <button
-                                type="button"
-                                class="btn btn-secondary btn-sm"
-                                id="toggle-sound"
-                                aria-pressed="false"
-                            >
-                                Sound: Off
-                            </button>
-                            <a href="signup.html" class="btn btn-primary btn-sm" data-join-link
-                                >Join GYMZONE</a
-                            >
-                        </div>
-                        <span id="sound-status" class="visually-hidden" role="status"></span>
-                    </div>
-                    <div class="footer-bottom pt-4">
-                        <div class="footer-credits">
-                            <p class="mb-1">Team: Umirgaliyev Yernar &amp; Kazybek Karabala</p>
-                            <p class="mb-0">Astana IT University &copy; 2026 · GYMZONE</p>
-                        </div>
-                        <a class="footer-top" href="#main-header"
-                            >Back to top <span aria-hidden="true">↑</span></a
+                        <a href="contact.html" class="btn btn-outline-primary">Contact us</a>
+                        <a class="footer-email mt-3" href="mailto:ernarface12@gmail.com"
+                            >ernarface12@gmail.com</a
                         >
                     </div>
                 </div>
-            </footer>
-        </div>
+                <div class="footer-tools py-4">
+                    <div class="footer-clock">
+                        <span class="footer-heading">Local date &amp; time</span>
+                        <time id="current-datetime" datetime="2026-11-18" aria-live="off"
+                            >Loading local time...</time
+                        >
+                    </div>
+                    <div class="footer-tool-buttons">
+                        <button
+                            type="button"
+                            class="btn btn-secondary btn-sm"
+                            id="toggle-sound"
+                            aria-pressed="false"
+                        >
+                            Sound: Off
+                        </button>
+                        <a href="signup.html" class="btn btn-primary btn-sm" data-join-link
+                            >Join GYMZONE</a
+                        >
+                    </div>
+                    <span id="sound-status" class="visually-hidden" role="status"></span>
+                </div>
+                <div class="footer-bottom pt-4">
+                    <div class="footer-credits">
+                        <p class="mb-1">Team: Umirgaliyev Yernar &amp; Kazybek Karabala</p>
+                        <p class="mb-0">Astana IT University &copy; 2026 · GYMZONE</p>
+                    </div>
+                    <a class="footer-top" href="#main-header"
+                        >Back to top <span aria-hidden="true">↑</span></a
+                    >
+                </div>
+            </div>
+        </footer>
+
         <script src="vendor/bootstrap/bootstrap.bundle.min.js"></script>
         <audio id="completion-sound" src="audio/success.wav" preload="none"></audio>
         <script src="js/exercises.js" defer></script>

@@ -7,6 +7,7 @@
         <meta name="theme-color" content="#111715" />
         <title>Log In | GYMZONE</title>
         <script src="js/theme.js"></script>
+        <script src="js/storage.js"></script>
         <link rel="icon" type="image/png" href="images/gymzone-logo.png" />
         <link href="vendor/bootstrap/bootstrap.min.css" rel="stylesheet" />
         <link rel="stylesheet" href="css/style.css" />
@@ -136,6 +137,12 @@
                         data-auth="login"
                         novalidate
                     >
+                        <noscript
+                            ><p class="form-status is-error" data-js-notice>
+                                This form needs JavaScript. Nothing is sent anywhere, your data
+                                stays in your browser. Please turn JavaScript on to continue.
+                            </p></noscript
+                        >
                         <h2 class="mb-4">Log in to GYMZONE</h2>
                         <p class="auth-notice" id="login-notice" role="status" hidden></p>
                         <div class="mb-3">
@@ -181,7 +188,14 @@
                             <p class="field-error" id="login-password-error"></p>
                         </div>
                         <p class="form-status" role="status" aria-live="polite"></p>
-                        <button class="btn btn-primary btn-lg w-100" type="submit">Log in</button>
+                        <button
+                            class="btn btn-primary btn-lg w-100"
+                            type="submit"
+                            disabled
+                            data-requires-js
+                        >
+                            Log in
+                        </button>
                         <p class="auth-switch mt-4 mb-0">
                             No account yet? <a href="signup.html">Create one</a>
                         </p>
